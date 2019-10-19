@@ -1,0 +1,22 @@
+App Realizada por Nico Trezza, fin de sus ppp
+
+ -Arbolado-master es el proyecto para ejecutar en andoird studio
+ -La base de datos es la que funciona con este proyecto, bd LOCAl sin problemas
+ -Los inserte a la BD se realizan con php, por lo que se necesita tener instalado XAMPP
+ -El proyecto web html esta completo en la carpeta ArboladoUrbanoUnla, insert1.php hace las altas de todos los censos.
+ -En el txt contraseñas esta todo lo necesario para probar el proyecto en host gratuito ( No es prioridad)
+
+
+OJOTA!!!... Hice todo asi nomas desprolijo, las capas de los datos estan todas mal, los html hago la consulta  a la base de datos
+solo para mostrar algo en la reunion
+
+-----¿Que hay que hacer? - j.Federico
+
+1- Prioridad maxima: Trabajar con CamaraActivity, se tiene que poder sacar/elegir como mucho diez fotos por censo. 
+2- En la alta de censo hay que hacer el POST tambien de las imagenes en la bd (modificar la base de datos)
+3- Que las altas impacten en el host gratuito
+4- Que se puedan realizar consultas a la bd desde la web (Basicas)
+
+
+------- Proximo integrante
+1- Una vez que la interaccion entre la app y la bd este al 100% centrarse en los reportes web y visualización.
