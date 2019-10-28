@@ -37,7 +37,7 @@ Contraseña:arboladoroot
 
 
 -------------------------------------------------------------
------Base de datos al 12-10-2019
+-----Base de datos al 27-10-2019
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
 START TRANSACTION;
@@ -50,7 +50,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `arbolado`
+-- Base de datos: `id11206201_mipc_24624265_arbolado`
 --
 
 -- --------------------------------------------------------
@@ -61,38 +61,27 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `arbol` (
   `idArbol` int(11) NOT NULL,
-  `especie` varchar(45) NOT NULL,
+  `especie` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
   `numeroArbol` int(11) NOT NULL,
-  `distanciaEntrePlantas` varchar(15) NOT NULL,
-  `distanciaAlMuro` varchar(15) NOT NULL,
-  `circunferenciaDelArbol` varchar(15) NOT NULL,
-  `cazuela` varchar(45) NOT NULL,
-  `comentario` varchar(45) DEFAULT NULL,
+  `distanciaEntrePlantas` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
+  `distanciaAlMuro` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
+  `circunferenciaDelArbol` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
+  `cazuela` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `comentario` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
   `idCenso` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `arbol`
 --
 
 INSERT INTO `arbol` (`idArbol`, `especie`, `numeroArbol`, `distanciaEntrePlantas`, `distanciaAlMuro`, `circunferenciaDelArbol`, `cazuela`, `comentario`, `idCenso`) VALUES
-(5, 'Especie1', 1, '11.1', '22.2', '33.4', 'Cazuela2', 'Andara el abm?', 7),
-(6, 'Especie1', 1, '11.1', '22.2', '33.4', 'Cazuela2', 'Andara el abm?', 8),
-(21, 'pepepedp', 343, '2321.8', '343434', '2321', '2fef', 'rrrrrrr', 50),
-(22, 'pepepedp', 343, '2321.8', '343434', '2321', '2fef', 'rrrrrrr', 51),
-(23, 'pepepedp', 343, '2321.8', '343434', '2321', '2fef', 'rrrrrrr', 52),
-(24, 'pepepedp', 343, '2321.8', '343434', '2321', '2fef', 'rrrrrrr', 53),
-(25, 'pepepedp', 343, '2321.8', '343434', '2321', '2fef', 'rrrrrrr', 55),
-(26, 'pepepedp', 343, '2321.8', '343434', '2321', '2fef', 'rrrrrrr', 54),
-(27, 'Especie', 12, '32.0', '32.0', '123.0', 'SI', 'Hermosooo', 56),
-(28, 'Especie', 121, '12.0', '23.0', '213.0', 'SI', 'dededed', 58),
-(29, 'Especie', 25, '0.0', '0.0', '0.0', 'Cazuela', '', 57),
-(30, 'Especie', 12, '32.0', '32.0', '123.0', 'SI', 'Hermosooo', 59),
-(31, 'Especie', 121, '12.0', '23.0', '213.0', 'SI', 'dededed', 60),
-(32, 'Especie', 12, '32.0', '32.0', '123.0', 'SI', 'Hermosooo', 61),
-(33, 'Especie', 4, '0.0', '0.0', '0.0', 'Cazuela', '', 62),
-(34, 'Especie', 4, '0.0', '0.0', '0.0', 'Cazuela', '', 63),
-(35, 'Especie', 1, '0.0', '0.0', '0.0', 'Cazuela', '', 64);
+(36, 'Arbol fuccia', 7, '0.0', '0.0', '0.0', 'Cazuela', '', 65),
+(38, 'Especie', 8, '0.0', '0.0', '0.0', 'Cazuela', '', 67),
+(39, 'Especie', 23, '0.0', '0.0', '0.0', 'Cazuela', '', 68),
+(40, 'Especie', 1, '0.0', '0.0', '0.0', 'Cazuela', '', 69),
+(41, 'Especie', 1, '0.0', '0.0', '0.0', 'Cazuela', '', 70),
+(42, 'Especie', 46, '0.0', '0.0', '0.0', 'Cazuela', '', 71);
 
 -- --------------------------------------------------------
 
@@ -102,36 +91,25 @@ INSERT INTO `arbol` (`idArbol`, `especie`, `numeroArbol`, `distanciaEntrePlantas
 
 CREATE TABLE `calle` (
   `idCalle` int(11) NOT NULL,
-  `nombre` varchar(45) NOT NULL,
+  `nombre` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
   `numeroFrente` int(11) NOT NULL,
-  `anchoVereda` varchar(15) NOT NULL,
-  `paridad` varchar(45) NOT NULL,
-  `transito` varchar(45) NOT NULL,
+  `anchoVereda` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
+  `paridad` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `transito` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
   `idCenso` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `calle`
 --
 
 INSERT INTO `calle` (`idCalle`, `nombre`, `numeroFrente`, `anchoVereda`, `paridad`, `transito`, `idCenso`) VALUES
-(5, 'Alta calle', 2222, '20.6', 'par', 'avenida', 7),
-(6, 'Alta calle', 2222, '20.6', 'par', 'avenida', 8),
-(26, 'pepepep', 343, '2321.8', '343434', '2321', 50),
-(27, 'pepepep', 343, '2321.8', '343434', '2321', 51),
-(28, 'nombre', 343, '2321.8', '343434', '2321', 52),
-(29, 'nombre', 343, '2321.8', '343434', '2321', 53),
-(30, 'nombre', 343, '2321.8', '343434', '2321', 55),
-(31, 'nombre', 343, '2321.8', '343434', '2321', 54),
-(32, 'Alfonso', 1231, '312.0', 'PAR', 'PARTICULAR', 56),
-(33, 'frfrf', 111, '12121.0', 'PAR', 'PARTICULAR', 58),
-(34, 'po', 13, '25.0', 'PAR', 'PARTICULAR', 57),
-(35, 'Alfonso', 1231, '312.0', 'PAR', 'PARTICULAR', 59),
-(36, 'frfrf', 111, '12121.0', 'PAR', 'PARTICULAR', 60),
-(37, 'Alfonso', 1231, '312.0', 'PAR', 'PARTICULAR', 61),
-(38, '', 0, '0.0', 'Paridad', 'Transito', 62),
-(39, '', 0, '0.0', 'Paridad', 'Transito', 63),
-(40, '', 0, '0.0', 'Paridad', 'Transito', 64);
+(41, '', 0, '0.0', 'Paridad', 'Transito', 65),
+(43, '', 0, '0.0', 'Paridad', 'Transito', 67),
+(44, '', 0, '0.0', 'Paridad', 'Transito', 68),
+(45, 'aqwqw', 12, '0.0', 'Paridad', 'Transito', 69),
+(46, '', 0, '0.0', 'Paridad', 'Transito', 70),
+(47, '', 0, '0.0', 'Paridad', 'Transito', 71);
 
 -- --------------------------------------------------------
 
@@ -141,32 +119,20 @@ INSERT INTO `calle` (`idCalle`, `nombre`, `numeroFrente`, `anchoVereda`, `parida
 
 CREATE TABLE `censo` (
   `idCenso` int(11) NOT NULL,
-  `fechaHora` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `fechaHora` text COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `censo`
 --
 
 INSERT INTO `censo` (`idCenso`, `fechaHora`) VALUES
-(7, '2019-08-30 11:50:34'),
-(8, '2019-08-30 11:50:56'),
-(15, '2019-10-08 13:11:59'),
-(50, '2019-10-08 13:11:59'),
-(51, '2019-10-08 13:11:59'),
-(52, '2019-10-08 13:11:59'),
-(53, '2019-10-08 13:11:59'),
-(54, '2019-10-08 13:11:59'),
-(55, '2019-10-08 13:11:59'),
-(56, '2019-10-08 13:11:59'),
-(57, '2019-10-08 13:11:59'),
-(58, '2019-10-08 13:11:59'),
-(59, '2019-10-08 13:11:59'),
-(60, '2019-10-08 13:11:59'),
-(61, '2019-10-08 13:11:59'),
-(62, '2019-10-08 13:11:59'),
-(63, '2019-10-08 13:11:59'),
-(64, '12/10/2019 0:39:47');
+(65, '12/10/2019 23:11:14'),
+(67, '14/10/2019 18:50:29'),
+(68, '15/10/2019 0:31:10'),
+(69, '15/10/2019 0:32:55'),
+(70, '14/10/2019 22:4:29'),
+(71, '27/10/2019 17:19:1');
 
 -- --------------------------------------------------------
 
@@ -176,34 +142,22 @@ INSERT INTO `censo` (`idCenso`, `fechaHora`) VALUES
 
 CREATE TABLE `coordenada` (
   `idCoordenada` int(11) NOT NULL,
-  `latitud` varchar(45) NOT NULL,
-  `longitud` varchar(45) NOT NULL,
+  `latitud` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `longitud` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
   `idCenso` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `coordenada`
 --
 
 INSERT INTO `coordenada` (`idCoordenada`, `latitud`, `longitud`, `idCenso`) VALUES
-(8, '222.2', '23232.2', 7),
-(9, '222.2', '23232.2', 8),
-(12, '1212', '1212', 15),
-(50, '2321', '343434', 50),
-(51, '2321', '343434', 51),
-(52, '2321', '343434', 52),
-(53, '2321', '343434', 53),
-(54, '2321', '343434', 54),
-(55, '2321', '343434', 55),
-(56, '12.33', '23.4', 56),
-(57, '12', '36', 57),
-(58, '12', '21', 58),
-(59, '12.33', '23.4', 59),
-(60, '12', '21', 60),
-(61, '12.33', '23.4', 61),
-(62, '34.5', '45.5', 62),
-(63, '34.5', '45.5', 63),
-(64, '34.7', '45.6', 64);
+(65, '9', '9', 65),
+(67, '8', '8', 67),
+(68, '12', '21', 68),
+(69, '12', '33', 69),
+(70, '45', '45', 70),
+(71, '45', '67', 71);
 
 -- --------------------------------------------------------
 
@@ -213,39 +167,28 @@ INSERT INTO `coordenada` (`idCoordenada`, `latitud`, `longitud`, `idCenso`) VALU
 
 CREATE TABLE `estadodelarbol` (
   `idEstadoDelArbol` int(11) NOT NULL,
-  `estadoSanitario` varchar(45) NOT NULL,
-  `inclinacion` varchar(45) NOT NULL,
-  `ahuecamiento` varchar(45) NOT NULL,
-  `cable` varchar(45) NOT NULL,
-  `luminaria` varchar(45) NOT NULL,
-  `danios` varchar(45) NOT NULL,
-  `veredas` varchar(45) NOT NULL,
-  `podas` varchar(45) NOT NULL,
+  `estadoSanitario` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `inclinacion` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `ahuecamiento` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `cable` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `luminaria` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `danios` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `veredas` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `podas` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
   `idCenso` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `estadodelarbol`
 --
 
 INSERT INTO `estadodelarbol` (`idEstadoDelArbol`, `estadoSanitario`, `inclinacion`, `ahuecamiento`, `cable`, `luminaria`, `danios`, `veredas`, `podas`, `idCenso`) VALUES
-(5, 'ES', 'IN', 'ahu', 'ca', 'LU', 'danios', 'veredas', 'podas', 7),
-(6, 'ES', 'IN', 'ahu', 'ca', 'LU', 'danios', 'veredas', 'podas', 8),
-(9, 'pepepedp', '343', '2321.8', '343434', '2321', '2fef', 'rrrrrrr', 'rrrrrrr', 50),
-(10, 'pepepedp', '343', '2321.8', '343434', '2321', '2fef', 'rrrrrrr', 'rrrrrrr', 51),
-(11, 'pepepedp', '343', '2321.8', '343434', '2321', '2fef', 'rrrrrrr', 'rrrrrrr', 52),
-(12, 'pepepedp', '343', '2321.8', '343434', '2321', '2fef', 'rrrrrrr', 'rrrrrrr', 53),
-(13, 'pepepedp', '343', '2321.8', '343434', '2321', '2fef', 'rrrrrrr', 'rrrrrrr', 54),
-(14, 'pepepedp', '343', '2321.8', '343434', '2321', '2fef', 'rrrrrrr', 'rrrrrrr', 55),
-(15, 'D', 'LI', '>50%', 'PD', 'PE', 'NO', 'NO', 'NO', 56),
-(16, 'Estado Sanitario', 'Inclinacion', '>50%', 'Cables', 'PD', 'Daños', 'Veredas', 'Podas', 58),
-(17, 'Estado Sanitario', 'Inclinacion', '>50%', 'Cables', 'Luminaria', 'Daños', 'Veredas', 'Podas', 57),
-(18, 'D', 'LI', '>50%', 'PD', 'PE', 'NO', 'NO', 'NO', 59),
-(19, 'Estado Sanitario', 'Inclinacion', '>50%', 'Cables', 'PD', 'Daños', 'Veredas', 'Podas', 60),
-(20, 'D', 'LI', '>50%', 'PD', 'PE', 'NO', 'NO', 'NO', 61),
-(21, 'Estado Sanitario', 'Inclinacion', 'Ahuecamiento', 'Cables', 'Luminaria', 'Daños', 'Veredas', 'Podas', 62),
-(22, 'Estado Sanitario', 'Inclinacion', 'Ahuecamiento', 'Cables', 'Luminaria', 'Daños', 'Veredas', 'Podas', 63),
-(23, 'Estado Sanitario', 'Inclinacion', 'Ahuecamiento', 'Cables', 'Luminaria', 'Daños', 'Veredas', 'Podas', 64);
+(24, 'Estado Sanitario', 'Inclinacion', 'Ahuecamiento', 'Cables', 'Luminaria', 'Daños', 'Veredas', 'Podas', 65),
+(26, 'Estado Sanitario', 'Inclinacion', 'Ahuecamiento', 'Cables', 'Luminaria', 'Daños', 'Veredas', 'Podas', 67),
+(27, 'Estado Sanitario', 'Inclinacion', 'Ahuecamiento', 'Cables', 'Luminaria', 'Daños', 'Veredas', 'Podas', 68),
+(28, 'Estado Sanitario', 'Inclinacion', 'Ahuecamiento', 'Cables', 'Luminaria', 'Daños', 'Veredas', 'Podas', 69),
+(29, 'Estado Sanitario', 'Inclinacion', 'Ahuecamiento', 'Cables', 'Luminaria', 'Daños', 'Veredas', 'Podas', 70),
+(30, 'Estado Sanitario', 'Inclinacion', 'Ahuecamiento', 'Cables', 'Luminaria', 'Daños', 'Veredas', 'Podas', 71);
 
 -- --------------------------------------------------------
 
@@ -255,8 +198,11 @@ INSERT INTO `estadodelarbol` (`idEstadoDelArbol`, `estadoSanitario`, `inclinacio
 
 CREATE TABLE `imagen` (
   `idImagen` int(11) NOT NULL,
-  `idCenso` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `idCenso` int(11) NOT NULL,
+  `nombre` varchar(15) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `descripcion` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `imagen` blob NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -266,31 +212,23 @@ CREATE TABLE `imagen` (
 
 CREATE TABLE `usuario` (
   `idUsuario` int(11) NOT NULL,
-  `nombre` varchar(45) NOT NULL,
-  `apellido` varchar(45) NOT NULL,
+  `nombre` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `apellido` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
   `dni` int(11) NOT NULL,
   `idCenso` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
 INSERT INTO `usuario` (`idUsuario`, `nombre`, `apellido`, `dni`, `idCenso`) VALUES
-(3, 'nico', 'TreRez', 11, 7),
-(7, 'nombre', '343', 2321, 52),
-(8, 'nombre', '343', 2321, 53),
-(9, 'nombre', '343', 2321, 54),
-(10, 'nombre', '343', 2321, 55),
-(11, 'Brenda', 'Gomez', 4545433, 56),
-(12, 'Nico', 'Perez', 11123123, 58),
-(13, 'Nicolol', 'Perez', 11123123, 57),
-(14, 'Brenda', 'Gomez', 4545433, 59),
-(15, 'Nico', 'Perez', 11123123, 60),
-(16, 'Brenda', 'Gomez', 4545433, 61),
-(17, 'Pepe', 'Pompin', 32322432, 62),
-(18, 'Pepe', 'Pompin', 32322432, 63),
-(19, 'robert', 'mujica', 34315968, 64);
+(20, 'Alan', 'Prechot', 34315968, 65),
+(22, 'de', 'de', 2222222, 67),
+(23, 'de', 'de', 2222222, 68),
+(24, 'de', 'de', 2222222, 69),
+(25, 'Nykolai', 'Perez', 4524545, 70),
+(26, 'Nykolai', 'Perez', 4524545, 71);
 
 --
 -- Índices para tablas volcadas
@@ -352,31 +290,31 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `arbol`
 --
 ALTER TABLE `arbol`
-  MODIFY `idArbol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `idArbol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT de la tabla `calle`
 --
 ALTER TABLE `calle`
-  MODIFY `idCalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `idCalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT de la tabla `censo`
 --
 ALTER TABLE `censo`
-  MODIFY `idCenso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `idCenso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
 
 --
 -- AUTO_INCREMENT de la tabla `coordenada`
 --
 ALTER TABLE `coordenada`
-  MODIFY `idCoordenada` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `idCoordenada` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
 
 --
 -- AUTO_INCREMENT de la tabla `estadodelarbol`
 --
 ALTER TABLE `estadodelarbol`
-  MODIFY `idEstadoDelArbol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `idEstadoDelArbol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT de la tabla `imagen`
@@ -388,7 +326,7 @@ ALTER TABLE `imagen`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- Restricciones para tablas volcadas
@@ -434,4 +372,3 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-

@@ -75,6 +75,8 @@
                 android:autoLink="web"
                 android:gravity="center"
                 android:padding="20px"
+                android:onClick="irAWeb"
+                android:contextClickable="true"
                 android:text="@string/link"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 

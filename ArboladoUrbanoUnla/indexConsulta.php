@@ -121,9 +121,9 @@
 
 
 $servername = "localhost";
-$username = "root";
-$password = "root";
-$database = "arbolado";
+$username = "id11206201_mipc_24624265";
+$password = "arboladoroot";
+$database = "id11206201_mipc_24624265_arbolado";
 
 $conn = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
 

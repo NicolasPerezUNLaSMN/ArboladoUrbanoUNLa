@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 
@@ -30,6 +31,13 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, UsuarioActivity.class);
         startActivity(intent);
 
+    }
+
+
+    public void irAWeb(View v) {
+        Uri uri = Uri.parse("https://arboladourbanounla.000webhostapp.com//");
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        startActivity(intent);
     }
 
     public void verRegistros(View view) {

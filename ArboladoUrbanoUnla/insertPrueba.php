@@ -47,6 +47,14 @@ $username = "id11206201_mipc_24624265";
 $password = "arboladoroot";
 $database = "id11206201_mipc_24624265_arbolado";
 
+
+$image = imagecreatefromjpeg('arbolPrueba.jpeg');
+ob_start();
+imagejpeg($image);
+$jpg = ob_get_contents();
+ob_end_clean();
+$jpg = str_replace('##','##',mysql_escape_string($jpg));
+
 try {
     $conn = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
     // set the PDO error mode to exception
@@ -116,6 +124,15 @@ $result->bindValue(':dni', $dni, PDO::PARAM_INT);
 $result->bindValue(':idCenso', $lastId, PDO::PARAM_INT);
 $result->execute();
 
+
+//imagen
+$sql = 'INSERT INTO imagen (idCenso, nombre, descripcion, imagen) VALUES (:idCenso,:nombre, :apellido, :jpg)';
+$result = $conn->prepare($sql);
+$result->bindValue(':nombre', $nombre, PDO::PARAM_STR);
+$result->bindValue(':apellido', $apellido, PDO::PARAM_STR);
+$result->bindValue(':jpg', $jpg, PDO::PARAM_STR);
+$result->bindValue(':idCenso', $lastId, PDO::PARAM_INT);
+$result->execute();
 
 
 
