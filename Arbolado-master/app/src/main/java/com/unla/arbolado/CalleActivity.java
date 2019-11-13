@@ -59,6 +59,9 @@ public class CalleActivity extends AppCompatActivity {
             if (anchovereda.isEmpty())
                 anchovereda = "0";
 
+            if(calle.isEmpty()){calle = "";}
+            if(numerocasa.isEmpty()){numerocasa = "0";}
+
             id = CalleSQLite.getInstance(this).agregar(new Calle(calle, Integer.parseInt(numerocasa), Float.parseFloat(anchovereda), paridad, transito));
             Toast.makeText(getApplicationContext(), "ID registro: " + id, Toast.LENGTH_SHORT).show();
         }

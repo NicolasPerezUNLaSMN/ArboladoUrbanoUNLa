@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="@string/et_calle"
-                android:inputType="textPersonName" />
+                android:inputType="text" />
 
             <EditText
                 android:id="@+id/et_numerocasa"

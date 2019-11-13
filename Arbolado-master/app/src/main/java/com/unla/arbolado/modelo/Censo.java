@@ -7,6 +7,7 @@ import com.unla.arbolado.SQLite.Contrato;
 import java.io.Serializable;
 import java.util.GregorianCalendar;
 
+
 public class Censo implements Serializable {
 
     private int idCenso;

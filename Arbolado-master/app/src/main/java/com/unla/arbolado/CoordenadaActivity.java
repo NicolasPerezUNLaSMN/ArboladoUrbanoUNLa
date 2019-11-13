@@ -11,6 +11,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -99,11 +100,17 @@ public class CoordenadaActivity extends AppCompatActivity implements LocationLis
             int idArbol = (int) getIntent().getLongExtra("idArbol", 0);
             int idEstadoDelArbol = (int) getIntent().getLongExtra("idEstadoDelArbol", 0);
 
-            CensoSQLite.getInstance(this).agregar(new Censo(UsuarioSQLite.getInstance(this).traer(idUsuario), CalleSQLite.getInstance(this).traer(idCalle),
+            //Censo a agregar
+            Censo censo = new Censo(UsuarioSQLite.getInstance(this).traer(idUsuario), CalleSQLite.getInstance(this).traer(idCalle),
                     ArbolSQLite.getInstance(this).traer(idArbol), EstadoDelArbolSQLite.getInstance(this).traer(idEstadoDelArbol),
-                    CoordenadaSQLite.getInstance(this).traer(id)));
+                    CoordenadaSQLite.getInstance(this).traer(id));
+
+
+            CensoSQLite.getInstance(this).agregar(censo);
 
             Intent intent = new Intent(this, CamaraActivity.class);
+
+
             startActivity(intent);
         }
     }

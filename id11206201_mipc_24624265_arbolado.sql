@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 27-10-2019 a las 21:48:47
+-- Tiempo de generación: 30-10-2019 a las 14:12:22
 -- Versión del servidor: 10.3.16-MariaDB
 -- Versión de PHP: 7.3.10
 
@@ -50,7 +50,15 @@ INSERT INTO `arbol` (`idArbol`, `especie`, `numeroArbol`, `distanciaEntrePlantas
 (39, 'Especie', 23, '0.0', '0.0', '0.0', 'Cazuela', '', 68),
 (40, 'Especie', 1, '0.0', '0.0', '0.0', 'Cazuela', '', 69),
 (41, 'Especie', 1, '0.0', '0.0', '0.0', 'Cazuela', '', 70),
-(42, 'Especie', 46, '0.0', '0.0', '0.0', 'Cazuela', '', 71);
+(42, 'Especie', 46, '0.0', '0.0', '0.0', 'Cazuela', '', 71),
+(43, 'Especie', 43, '0.0', '0.0', '0.0', 'Cazuela', '', 72),
+(44, 'Especie', 5, '0.0', '0.0', '0.0', 'Cazuela', '', 73),
+(45, 'Especie', 32, '0.0', '0.0', '0.0', 'Cazuela', '', 74),
+(46, 'Especie', 2, '0.0', '0.0', '0.0', 'Cazuela', '', 75),
+(47, 'Especie', 2, '0.0', '0.0', '0.0', 'Cazuela', '', 76),
+(48, 'Especie', 44, '0.0', '0.0', '0.0', 'Cazuela', '', 77),
+(49, 'Especie', 21, '0.0', '0.0', '0.0', 'Cazuela', '', 78),
+(50, 'Especie', 2, '0.0', '0.0', '0.0', 'Cazuela', '', 79);
 
 -- --------------------------------------------------------
 
@@ -78,7 +86,15 @@ INSERT INTO `calle` (`idCalle`, `nombre`, `numeroFrente`, `anchoVereda`, `parida
 (44, '', 0, '0.0', 'Paridad', 'Transito', 68),
 (45, 'aqwqw', 12, '0.0', 'Paridad', 'Transito', 69),
 (46, '', 0, '0.0', 'Paridad', 'Transito', 70),
-(47, '', 0, '0.0', 'Paridad', 'Transito', 71);
+(47, '', 0, '0.0', 'Paridad', 'Transito', 71),
+(48, '', 0, '0.0', 'Paridad', 'Transito', 72),
+(49, '', 0, '0.0', 'Paridad', 'Transito', 73),
+(50, '', 0, '0.0', 'Paridad', 'Transito', 74),
+(51, '', 0, '0.0', 'Paridad', 'Transito', 75),
+(52, '', 0, '0.0', 'Paridad', 'Transito', 76),
+(53, '', 0, '0.0', 'Paridad', 'Transito', 77),
+(54, '', 0, '0.0', 'Paridad', 'Transito', 78),
+(55, '', 0, '0.0', 'Paridad', 'Transito', 79);
 
 -- --------------------------------------------------------
 
@@ -101,7 +117,15 @@ INSERT INTO `censo` (`idCenso`, `fechaHora`) VALUES
 (68, '15/10/2019 0:31:10'),
 (69, '15/10/2019 0:32:55'),
 (70, '14/10/2019 22:4:29'),
-(71, '27/10/2019 17:19:1');
+(71, '27/10/2019 17:19:1'),
+(72, '27/10/2019 22:51:10'),
+(73, '27/10/2019 23:2:55'),
+(74, '27/10/2019 23:8:52'),
+(75, '27/10/2019 23:12:38'),
+(76, '27/10/2019 23:15:42'),
+(77, '27/10/2019 23:23:40'),
+(78, '27/10/2019 23:32:34'),
+(79, '27/10/2019 23:34:23');
 
 -- --------------------------------------------------------
 
@@ -126,7 +150,15 @@ INSERT INTO `coordenada` (`idCoordenada`, `latitud`, `longitud`, `idCenso`) VALU
 (68, '12', '21', 68),
 (69, '12', '33', 69),
 (70, '45', '45', 70),
-(71, '45', '67', 71);
+(71, '45', '67', 71),
+(72, '5', '5', 72),
+(73, '52', '25', 73),
+(74, '23', '22', 74),
+(75, '2', '2', 75),
+(76, '21', '21', 76),
+(77, '87', '87', 77),
+(78, '21', '22', 78),
+(79, '33', '43', 79);
 
 -- --------------------------------------------------------
 
@@ -157,7 +189,15 @@ INSERT INTO `estadodelarbol` (`idEstadoDelArbol`, `estadoSanitario`, `inclinacio
 (27, 'Estado Sanitario', 'Inclinacion', 'Ahuecamiento', 'Cables', 'Luminaria', 'Daños', 'Veredas', 'Podas', 68),
 (28, 'Estado Sanitario', 'Inclinacion', 'Ahuecamiento', 'Cables', 'Luminaria', 'Daños', 'Veredas', 'Podas', 69),
 (29, 'Estado Sanitario', 'Inclinacion', 'Ahuecamiento', 'Cables', 'Luminaria', 'Daños', 'Veredas', 'Podas', 70),
-(30, 'Estado Sanitario', 'Inclinacion', 'Ahuecamiento', 'Cables', 'Luminaria', 'Daños', 'Veredas', 'Podas', 71);
+(30, 'Estado Sanitario', 'Inclinacion', 'Ahuecamiento', 'Cables', 'Luminaria', 'Daños', 'Veredas', 'Podas', 71),
+(31, 'Estado Sanitario', 'Inclinacion', 'Ahuecamiento', 'Cables', 'Luminaria', 'Daños', 'Veredas', 'Podas', 72),
+(32, 'Estado Sanitario', 'Inclinacion', 'Ahuecamiento', 'Cables', 'Luminaria', 'Daños', 'Veredas', 'Podas', 73),
+(33, 'Estado Sanitario', 'Inclinacion', 'Ahuecamiento', 'Cables', 'Luminaria', 'Daños', 'Veredas', 'Podas', 74),
+(34, 'Estado Sanitario', 'Inclinacion', 'Ahuecamiento', 'Cables', 'Luminaria', 'Daños', 'Veredas', 'Podas', 75),
+(35, 'Estado Sanitario', 'Inclinacion', 'Ahuecamiento', 'Cables', 'Luminaria', 'Daños', 'Veredas', 'Podas', 76),
+(36, 'Estado Sanitario', 'Inclinacion', 'Ahuecamiento', 'Cables', 'Luminaria', 'Daños', 'Veredas', 'Podas', 77),
+(37, 'Estado Sanitario', 'Inclinacion', 'Ahuecamiento', 'Cables', 'Luminaria', 'Daños', 'Veredas', 'Podas', 78),
+(38, 'Estado Sanitario', 'Inclinacion', 'Ahuecamiento', 'Cables', 'Luminaria', 'Daños', 'Veredas', 'Podas', 79);
 
 -- --------------------------------------------------------
 
@@ -168,9 +208,7 @@ INSERT INTO `estadodelarbol` (`idEstadoDelArbol`, `estadoSanitario`, `inclinacio
 CREATE TABLE `imagen` (
   `idImagen` int(11) NOT NULL,
   `idCenso` int(11) NOT NULL,
-  `nombre` varchar(15) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `descripcion` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `imagen` blob NOT NULL
+  `img` mediumblob NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -197,7 +235,17 @@ INSERT INTO `usuario` (`idUsuario`, `nombre`, `apellido`, `dni`, `idCenso`) VALU
 (23, 'de', 'de', 2222222, 68),
 (24, 'de', 'de', 2222222, 69),
 (25, 'Nykolai', 'Perez', 4524545, 70),
-(26, 'Nykolai', 'Perez', 4524545, 71);
+(26, 'Nykolai', 'Perez', 4524545, 71),
+(27, 'aadsdde', 'de', 2222222, 72),
+(28, 'aadsdde', 'de', 2222222, 73),
+(29, 'aadsdde', 'de', 2222222, 73),
+(30, 'aadsdde', 'de', 2222222, 74),
+(31, 'aadsdde', 'de', 2222222, 74),
+(32, 'aadsdde', 'de', 2222222, 75),
+(33, 'aadsdde', 'de', 2222222, 76),
+(34, 'aadsdde', 'de', 2222222, 77),
+(35, 'aadsdde', 'de', 2222222, 78),
+(36, 'aadsdde', 'de', 2222222, 79);
 
 --
 -- Índices para tablas volcadas
@@ -259,43 +307,43 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `arbol`
 --
 ALTER TABLE `arbol`
-  MODIFY `idArbol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `idArbol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT de la tabla `calle`
 --
 ALTER TABLE `calle`
-  MODIFY `idCalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `idCalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT de la tabla `censo`
 --
 ALTER TABLE `censo`
-  MODIFY `idCenso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+  MODIFY `idCenso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
 
 --
 -- AUTO_INCREMENT de la tabla `coordenada`
 --
 ALTER TABLE `coordenada`
-  MODIFY `idCoordenada` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+  MODIFY `idCoordenada` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
 
 --
 -- AUTO_INCREMENT de la tabla `estadodelarbol`
 --
 ALTER TABLE `estadodelarbol`
-  MODIFY `idEstadoDelArbol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `idEstadoDelArbol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT de la tabla `imagen`
 --
 ALTER TABLE `imagen`
-  MODIFY `idImagen` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idImagen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- Restricciones para tablas volcadas

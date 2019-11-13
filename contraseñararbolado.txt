@@ -7,9 +7,11 @@ arboladoroot
 host gratuito 1:
 
 000webhostapp.com
-arbola.urbano.unla@gmail.com
+arbolado.urbano.unla@gmail.com
 arboladoroot
 
+
+Base de datos:
 nombre:id11206201_mipc_24624265_arbolado
 usuario: id11206201_mipc_24624265
 ubicacion: localhost
@@ -18,11 +20,7 @@ pass:arboladoroot
 
 https://arboladourbanounla.000webhostapp.com
 
-
-
-
-Nombre del Host:
-
+FTP:
 files.000webhost.com
 Port:21
 Usuario:arboladourbanounla
