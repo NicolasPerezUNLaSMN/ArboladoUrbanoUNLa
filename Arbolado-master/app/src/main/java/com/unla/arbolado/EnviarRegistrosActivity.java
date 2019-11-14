@@ -1,11 +1,16 @@
 package com.unla.arbolado;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Environment;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -21,6 +26,11 @@ import com.android.volley.toolbox.Volley;
 import com.unla.arbolado.SQLite.CensoSQLite;
 import com.unla.arbolado.modelo.Censo;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
@@ -34,10 +44,29 @@ public class EnviarRegistrosActivity extends AppCompatActivity {
     private List<Censo> censos;
     private List<String> info;
 
+    private boolean errorConectar = false;
+
+    final String CARPETA_RAIZ = "Arbo";
+    final String CARPETA_IMAGENES = "lado";
+    final String RUTA_IMAGEN = CARPETA_RAIZ + CARPETA_IMAGENES;
+
+    //Lista de imagenes que aun no se subieron
+    List<String> list = new ArrayList<String>();
+    //obtiene ruta donde se encuentran los archivos.
+
+
+    private ImageView imageView;
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enviarregistros);
+
+        imageView = (ImageView) findViewById(R.id.image_view);
+
     }
 
     @Override
@@ -45,6 +74,9 @@ public class EnviarRegistrosActivity extends AppCompatActivity {
         super.onStart();
 
         censos = CensoSQLite.getInstance(this).traer(this);
+
+
+
 
 
         for(Censo c: censos){
@@ -55,8 +87,10 @@ public class EnviarRegistrosActivity extends AppCompatActivity {
 
 
             ejecutarServicio("https://arboladourbanounla.000webhostapp.com/insertPrueba.php", c);
-
-                CensoSQLite.getInstance(this).eliminar(c.getIdCenso());
+		
+		//Si no hubo error borro
+                if(!errorConectar){
+                CensoSQLite.getInstance(this).eliminar(c.getIdCenso());}
 
 
 
@@ -74,6 +108,7 @@ public class EnviarRegistrosActivity extends AppCompatActivity {
 
     private void ejecutarServicio(String URL, final Censo c){
 
+        errorConectar = false;
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>(){
 
             @Override
@@ -83,8 +118,9 @@ public class EnviarRegistrosActivity extends AppCompatActivity {
         }, new Response.ErrorListener(){
             @Override
             public void onErrorResponse(VolleyError error){
-
+		errorConectar = true;
                 Toast.makeText(getApplicationContext(), "Ha fallado la conexion", Toast.LENGTH_SHORT).show();
+                
             }
 
         }){
@@ -101,7 +137,31 @@ public class EnviarRegistrosActivity extends AppCompatActivity {
                 Log.d("myTag - usuario", c.getUsuario().toString());
 
 
+                File fileImagen = new File(Environment.getExternalStorageDirectory(), RUTA_IMAGEN);
 
+
+                //obtiene nombres de archivos dentro del directorio.
+                File file[] = fileImagen.listFiles();
+
+                for (int i=0; i < file.length; i++)
+                {
+                    Log.d("Files", "Archivo -------->>: " + file[i].getName());
+                    //Agrega nombres de archivos a List para ser agregado a adapter.
+                    list.add(file[i].getName());
+
+
+                }
+
+                ArrayList<String> fotosASubir = new ArrayList<>();
+
+                //muestro la lista
+                for (String direccion:list){
+
+                    if((fileImagen + File.separator +direccion).contains("reg_"+c.getIdCenso()+"_")){
+                        fotosASubir.add(fileImagen + File.separator +direccion);
+                    }
+
+                }
 
 
 
@@ -145,6 +205,24 @@ public class EnviarRegistrosActivity extends AppCompatActivity {
                 parametros.put("dni", String.valueOf(c.getUsuario().getDni()));
 
 
+                //Creo el bitmap
+                Log.d("------zCreo bitmap", fotosASubir.get(0));
+                Bitmap bitmap = BitmapFactory.decodeFile(fotosASubir.get(0));
+
+
+                imageView.setImageBitmap(bitmap);
+
+
+                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+                byte[] byteArray = byteArrayOutputStream .toByteArray();
+                String base64OfBitmap = Base64.encodeToString(byteArray, Base64.DEFAULT);
+
+
+
+                parametros.put("image", base64OfBitmap);
+
+
 
 
 
@@ -166,4 +244,16 @@ public class EnviarRegistrosActivity extends AppCompatActivity {
                 + "/" + fecha.get(GregorianCalendar.YEAR) + " " + fecha.get(GregorianCalendar.HOUR_OF_DAY) + ":" +
                 fecha.get(GregorianCalendar.MINUTE) + ":" + fecha.get(GregorianCalendar.SECOND));
     }
+
+
+    public String getStringImage(Bitmap bmp){
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] imageBytes = baos.toByteArray();
+        String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+        return encodedImage;
+    }
+
+
+
 }

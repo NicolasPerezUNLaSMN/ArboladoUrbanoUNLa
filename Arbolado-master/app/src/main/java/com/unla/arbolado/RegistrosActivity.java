@@ -4,10 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -22,6 +24,7 @@ import com.unla.arbolado.SQLite.CensoSQLite;
 import com.unla.arbolado.modelo.Censo;
 import com.unla.arbolado.RequestHandler;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
@@ -39,10 +42,16 @@ public class RegistrosActivity extends AppCompatActivity {
     private List<Censo> censos;
     private List<String> info;
 
+
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registros);
+
     }
 
     @Override
@@ -50,6 +59,9 @@ public class RegistrosActivity extends AppCompatActivity {
         super.onStart();
         listView = findViewById(R.id.lista);
         censos = CensoSQLite.getInstance(this).traer(this);
+
+
+
 
         getInfo();
 
@@ -90,6 +102,9 @@ public class RegistrosActivity extends AppCompatActivity {
 
     private void getInfo() {
         info = new ArrayList<String>();
+
+
+
 
         for (Censo censo : censos) {
             if (censo.getCalle().getNombre().isEmpty()) {

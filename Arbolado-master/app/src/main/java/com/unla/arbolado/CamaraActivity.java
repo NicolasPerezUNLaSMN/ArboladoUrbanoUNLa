@@ -44,8 +44,8 @@ public class CamaraActivity extends AppCompatActivity {
     ImageView ivFoto;
 
     final int COD_FOTO = 20;
-    final String CARPETA_RAIZ = "Arbolado";
-    final String CARPETA_IMAGENES = "Capturas";
+    final String CARPETA_RAIZ = "Arbo";
+    final String CARPETA_IMAGENES = "lado";
     final String RUTA_IMAGEN = CARPETA_RAIZ + CARPETA_IMAGENES;
     String path;
 
@@ -61,7 +61,7 @@ public class CamaraActivity extends AppCompatActivity {
 
         censos = CensoSQLite.getInstance(this).traer(this);
         final Censo ultimoCenso = censos.get(censos.size()-1);
-        nombreFoto = "reg_"+ultimoCenso.getIdCenso() +"_"+fechaCorta(new GregorianCalendar());
+        nombreFoto = "reg_"+ultimoCenso.getIdCenso() +"_";
         Log.d("foto a guardar---->", nombreFoto);
 
         img = findViewById(R.id.img);
@@ -100,8 +100,8 @@ public class CamaraActivity extends AppCompatActivity {
 
 
     public void tomarFoto() {
-        String nombreImagen = nombreFoto;
-        Log.d(nombreFoto, "----tomarFoto: ");
+        String nombreImagen = nombreFoto+fechaCorta(new GregorianCalendar());;
+        Log.d(nombreImagen, "----tomarFoto: ");
 
         File fileImagen = new File(Environment.getExternalStorageDirectory(), RUTA_IMAGEN);
         boolean isCreada = fileImagen.exists();
@@ -111,7 +111,7 @@ public class CamaraActivity extends AppCompatActivity {
         }
 
         if(isCreada == true) {
-            nombreImagen = (System.currentTimeMillis() / 1000) + ".jpg";
+            nombreImagen = nombreImagen+ ".jpg";
         }
 
         path = Environment.getExternalStorageDirectory()+File.separator+RUTA_IMAGEN+File.separator+nombreImagen;
