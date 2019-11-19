@@ -42,18 +42,28 @@ $dni=(int)$_POST['dni'];
 
 
 
+
+
+
 $servername = "localhost";
 $username = "id11206201_mipc_24624265";
 $password = "arboladoroot";
 $database = "id11206201_mipc_24624265_arbolado";
 
 
-$image = imagecreatefromjpeg('arbolPrueba.jpeg');
-ob_start();
-imagejpeg($image);
-$jpg = ob_get_contents();
-ob_end_clean();
-$jpg = str_replace('##','##',mysql_escape_string($jpg));
+define('UPLOAD_DIR', 'images/');
+	$img = $_POST['image'];
+	$img = str_replace('data:image/png;base64,', '', $img);
+	$img = str_replace(' ', '+', $img);
+	$data = base64_decode($img);
+	$file = UPLOAD_DIR . uniqid() . '.png';
+	$success = file_put_contents($file, $data);
+
+// Read the image bytes into the $data variable
+//leemos la imagen como bytes y la grabamos en $data
+//$fh = fopen("arbolPrueba.jpg", "r");
+//$data = addslashes(fread($fh, filesize("arbolPrueba.jpg")));
+//fclose($fh);
 
 try {
     $conn = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
@@ -124,15 +134,15 @@ $result->bindValue(':dni', $dni, PDO::PARAM_INT);
 $result->bindValue(':idCenso', $lastId, PDO::PARAM_INT);
 $result->execute();
 
-
-//imagen
-$sql = 'INSERT INTO imagen (idCenso, nombre, descripcion, imagen) VALUES (:idCenso,:nombre, :apellido, :jpg)';
+// Create the query
+// hacemos el insert de la variable $data en el campo blob de la tabla
+$sql = 'INSERT INTO imagen(idCenso, img) VALUES( :idCenso,:data)';
 $result = $conn->prepare($sql);
-$result->bindValue(':nombre', $nombre, PDO::PARAM_STR);
-$result->bindValue(':apellido', $apellido, PDO::PARAM_STR);
-$result->bindValue(':jpg', $jpg, PDO::PARAM_STR);
 $result->bindValue(':idCenso', $lastId, PDO::PARAM_INT);
+$result->bindValue(':data', $data, PDO::PARAM_LOB);
 $result->execute();
+
+
 
 
 
@@ -146,6 +156,11 @@ echo 'Datos insertados';
     } catch(PDOException $e) {    
     echo "Connection failed: " . $e->getMessage();
     }
+
+
+
+
+
 ?>
 
 
