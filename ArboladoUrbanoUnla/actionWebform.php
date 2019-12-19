@@ -49,171 +49,176 @@ $target_dir = 'images/';
 
 $errors = [];
 $success = [];
-for ($i = 0; $i < $total; $i++) {
-  $target_file =
-    $target_dir . uniqid() . basename($_FILES['image']['name'][$i]);
-  $uploadOk = 1;
-  $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-  // Check if image file is a actual image or fake image
-  if (isset($_POST['submit'])) {
-    $check = getimagesize($_FILES['image']['tmp_name'][$i]);
-    if ($check !== false) {
-      echo 'File is an image - ' . $check['mime'] . '.';
-      $uploadOk = 1;
-    } else {
-      echo 'File is not an image.';
+
+if ($total > 15 || $total === 0) {
+  array_push($errors, 'La cantidad de imágenes debe ser menor o igual a 15.');
+} else {
+  for ($i = 0; $i < $total; $i++) {
+    $target_file =
+      $target_dir . uniqid() . basename($_FILES['image']['name'][$i]);
+    $uploadOk = 1;
+    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+    // Check if image file is a actual image or fake image
+    if (isset($_POST['submit'])) {
+      $check = getimagesize($_FILES['image']['tmp_name'][$i]);
+      if ($check !== false) {
+        echo 'File is an image - ' . $check['mime'] . '.';
+        $uploadOk = 1;
+      } else {
+        echo 'File is not an image.';
+        $uploadOk = 0;
+      }
+    }
+    // Check if file already exists
+    if (file_exists($target_file)) {
+      array_push($errors, 'La imagen ya existe.');
       $uploadOk = 0;
     }
-  }
-  // Check if file already exists
-  if (file_exists($target_file)) {
-    array_push($errors, 'La imagen ya existe.');
-    $uploadOk = 0;
-  }
-  // Check file size
-  if ($_FILES['image']['size'][$i] > 1000000) {
-    array_push($errors, 'La imagen es muy grande.');
-    $uploadOk = 0;
-  }
-  // Allow certain file formats
-  if (
-    $imageFileType != 'jpg' &&
-    $imageFileType != 'png' &&
-    $imageFileType != 'jpeg' &&
-    $imageFileType != 'gif'
-  ) {
-    echo 'Solo los formatos JPG, JPEG, PNG & GIF son permitidos.';
-    $uploadOk = 0;
-  }
-  // Check if $uploadOk is set to 0 by an error
-  if ($uploadOk == 0) {
-    array_push($errors, 'La imagen no fue enviado.');
-    // if everything is ok, try to upload file
-  } else {
-    if (move_uploaded_file($_FILES['image']['tmp_name'][$i], $target_file)) {
-      array_push(
-        $success,
-        'La imagen' .
-          basename($_FILES['image']['name'][$i]) .
-          ' ha sido enviado.'
-      );
+    // Check file size
+    if ($_FILES['image']['size'][$i] > 1000000) {
+      array_push($errors, 'La imagen es muy grande.');
+      $uploadOk = 0;
+    }
+    // Allow certain file formats
+    if (
+      $imageFileType != 'jpg' &&
+      $imageFileType != 'png' &&
+      $imageFileType != 'jpeg' &&
+      $imageFileType != 'gif'
+    ) {
+      echo 'Solo los formatos JPG, JPEG, PNG & GIF son permitidos.';
+      $uploadOk = 0;
+    }
+    // Check if $uploadOk is set to 0 by an error
+    if ($uploadOk == 0) {
+      array_push($errors, 'La imagen no fue enviado.');
+      // if everything is ok, try to upload file
     } else {
-      array_push($errors, 'Hubo un error enviando la imagen.');
+      if (move_uploaded_file($_FILES['image']['tmp_name'][$i], $target_file)) {
+        array_push(
+          $success,
+          'La imagen' .
+            basename($_FILES['image']['name'][$i]) .
+            ' ha sido enviado.'
+        );
+      } else {
+        array_push($errors, 'Hubo un error enviando la imagen.');
+      }
     }
   }
-}
 
-try {
-  $servername = '127.0.0.1';
-  $username = 'walter';
-  $password = 'walter';
-  $database = 'arbolado';
+  try {
+    $servername = '127.0.0.1';
+    $username = 'walter';
+    $password = 'walter';
+    $database = 'arbolado';
 
-  $conn = new PDO(
-    "mysql:host=$servername;dbname=$database",
-    $username,
-    $password
-  );
-  // set the PDO error mode to exception
-  //$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-  echo 'Connection failed: ' . $e->getMessage();
-}
+    $conn = new PDO(
+      "mysql:host=$servername;dbname=$database",
+      $username,
+      $password
+    );
+    // set the PDO error mode to exception
+    //$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  } catch (PDOException $e) {
+    echo 'Connection failed: ' . $e->getMessage();
+  }
 
-try {
-  $conn->beginTransaction();
-  $sql = 'INSERT INTO censo (fechaHora) VALUES (:value)';
-  $result = $conn->prepare($sql);
-  $result->bindValue(':value', $fechaHora, PDO::PARAM_STR);
-  $result->execute();
-  $lastId = $conn->lastInsertId();
+  try {
+    $conn->beginTransaction();
+    $sql = 'INSERT INTO censo (fechaHora) VALUES (:value)';
+    $result = $conn->prepare($sql);
+    $result->bindValue(':value', $fechaHora, PDO::PARAM_STR);
+    $result->execute();
+    $lastId = $conn->lastInsertId();
 
-  // coordenada
-  $sql =
-    'INSERT INTO coordenada (latitud, longitud, idCenso) VALUES (:latitud, :longitud, :idCenso)';
-  $result = $conn->prepare($sql);
-  $result->bindValue(':latitud', $latitud, PDO::PARAM_STR);
-  $result->bindValue(':longitud', $longitud, PDO::PARAM_STR);
-  $result->bindValue(':idCenso', $lastId, PDO::PARAM_INT);
-  $result->execute();
+    // coordenada
+    $sql =
+      'INSERT INTO coordenada (latitud, longitud, idCenso) VALUES (:latitud, :longitud, :idCenso)';
+    $result = $conn->prepare($sql);
+    $result->bindValue(':latitud', $latitud, PDO::PARAM_STR);
+    $result->bindValue(':longitud', $longitud, PDO::PARAM_STR);
+    $result->bindValue(':idCenso', $lastId, PDO::PARAM_INT);
+    $result->execute();
 
-  // calle
-  $sql =
-    'INSERT INTO calle (nombre, numeroFrente, anchoVereda,paridad, transito, idCenso) VALUES (:nombre, :numeroFrente, :anchoVereda,:paridad, :transito, :idCenso)';
-  $result = $conn->prepare($sql);
-  $result->bindValue(':nombre', $nombre, PDO::PARAM_STR);
-  $result->bindValue(':numeroFrente', $numeroFrente, PDO::PARAM_INT);
-  $result->bindValue(':anchoVereda', $anchoVereda, PDO::PARAM_STR);
-  $result->bindValue(':paridad', $paridad, PDO::PARAM_STR);
-  $result->bindValue(':transito', $transito, PDO::PARAM_STR);
-  $result->bindValue(':idCenso', $lastId, PDO::PARAM_INT);
-  $result->execute();
+    // calle
+    $sql =
+      'INSERT INTO calle (nombre, numeroFrente, anchoVereda,paridad, transito, idCenso) VALUES (:nombre, :numeroFrente, :anchoVereda,:paridad, :transito, :idCenso)';
+    $result = $conn->prepare($sql);
+    $result->bindValue(':nombre', $nombre, PDO::PARAM_STR);
+    $result->bindValue(':numeroFrente', $numeroFrente, PDO::PARAM_INT);
+    $result->bindValue(':anchoVereda', $anchoVereda, PDO::PARAM_STR);
+    $result->bindValue(':paridad', $paridad, PDO::PARAM_STR);
+    $result->bindValue(':transito', $transito, PDO::PARAM_STR);
+    $result->bindValue(':idCenso', $lastId, PDO::PARAM_INT);
+    $result->execute();
 
-  // arbol
-  $sql =
-    'INSERT INTO arbol (especie,numeroArbol,distanciaEntrePlantas, distanciaAlMuro,circunferenciaDelArbol, cazuela,comentario, idCenso, diametro, altura, cordon) VALUES (:especie,:numeroArbol,:distanciaEntrePlantas, :distanciaAlMuro,:circunferenciaDelArbol, :cazuela,:comentario, :idCenso, :diametro, :altura, :cordon)';
-  $result = $conn->prepare($sql);
-  $result->bindValue(':especie', $especie, PDO::PARAM_STR);
-  $result->bindValue(':numeroArbol', $numeroArbol, PDO::PARAM_INT);
-  $result->bindValue(
-    ':distanciaEntrePlantas',
-    $distanciaEntrePlantas,
-    PDO::PARAM_STR
-  );
-  $result->bindValue(':diametro', $diametro, PDO::PARAM_STR);
-  $result->bindValue(':altura', $altura, PDO::PARAM_STR);
-  $result->bindValue(':cordon', $cordon, PDO::PARAM_STR);
-  $result->bindValue(':distanciaAlMuro', $distanciaAlMuro, PDO::PARAM_STR);
-  $result->bindValue(
-    ':circunferenciaDelArbol',
-    $circunferenciaDelArbol,
-    PDO::PARAM_STR
-  );
-  $result->bindValue(':cazuela', $cazuela, PDO::PARAM_STR);
-  $result->bindValue(':comentario', $comentario, PDO::PARAM_STR);
-  $result->bindValue(':idCenso', $lastId, PDO::PARAM_INT);
-  $result->execute();
+    // arbol
+    $sql =
+      'INSERT INTO arbol (especie,numeroArbol,distanciaEntrePlantas, distanciaAlMuro,circunferenciaDelArbol, cazuela,comentario, idCenso, diametro, altura, cordon) VALUES (:especie,:numeroArbol,:distanciaEntrePlantas, :distanciaAlMuro,:circunferenciaDelArbol, :cazuela,:comentario, :idCenso, :diametro, :altura, :cordon)';
+    $result = $conn->prepare($sql);
+    $result->bindValue(':especie', $especie, PDO::PARAM_STR);
+    $result->bindValue(':numeroArbol', $numeroArbol, PDO::PARAM_INT);
+    $result->bindValue(
+      ':distanciaEntrePlantas',
+      $distanciaEntrePlantas,
+      PDO::PARAM_STR
+    );
+    $result->bindValue(':diametro', $diametro, PDO::PARAM_STR);
+    $result->bindValue(':altura', $altura, PDO::PARAM_STR);
+    $result->bindValue(':cordon', $cordon, PDO::PARAM_STR);
+    $result->bindValue(':distanciaAlMuro', $distanciaAlMuro, PDO::PARAM_STR);
+    $result->bindValue(
+      ':circunferenciaDelArbol',
+      $circunferenciaDelArbol,
+      PDO::PARAM_STR
+    );
+    $result->bindValue(':cazuela', $cazuela, PDO::PARAM_STR);
+    $result->bindValue(':comentario', $comentario, PDO::PARAM_STR);
+    $result->bindValue(':idCenso', $lastId, PDO::PARAM_INT);
+    $result->execute();
 
-  // estado del arbol
-  $sql =
-    'INSERT INTO estadodelarbol (estadoSanitario,inclinacion,ahuecamiento,cable,luminaria,danios,veredas,podas, idCenso, raices, superficie, afecto) VALUES (:estadoSanitario,:inclinacion,:ahuecamiento,:cable,:luminaria,:danios,:veredas,:podas, :idCenso, :raices, :superficie, :afecto)';
-  $result = $conn->prepare($sql);
-  $result->bindValue(':estadoSanitario', $estadoSanitario, PDO::PARAM_STR);
-  $result->bindValue(':inclinacion', $inclinacion, PDO::PARAM_STR);
-  $result->bindValue(':ahuecamiento', $ahuecamiento, PDO::PARAM_STR);
-  $result->bindValue(':cable', $cable, PDO::PARAM_STR);
-  $result->bindValue(':luminaria', $luminaria, PDO::PARAM_STR);
-  $result->bindValue(':danios', $danios, PDO::PARAM_STR);
-  $result->bindValue(':veredas', $veredas, PDO::PARAM_STR);
-  $result->bindValue(':podas', $podas, PDO::PARAM_STR);
-  $result->bindValue(':raices', $raices, PDO::PARAM_STR);
-  $result->bindValue(':superficie', $superficie, PDO::PARAM_STR);
-  $result->bindValue(':afecto', $afecto, PDO::PARAM_STR);
-  $result->bindValue(':idCenso', $lastId, PDO::PARAM_INT);
-  $result->execute();
+    // estado del arbol
+    $sql =
+      'INSERT INTO estadodelarbol (estadoSanitario,inclinacion,ahuecamiento,cable,luminaria,danios,veredas,podas, idCenso, raices, superficie, afecto) VALUES (:estadoSanitario,:inclinacion,:ahuecamiento,:cable,:luminaria,:danios,:veredas,:podas, :idCenso, :raices, :superficie, :afecto)';
+    $result = $conn->prepare($sql);
+    $result->bindValue(':estadoSanitario', $estadoSanitario, PDO::PARAM_STR);
+    $result->bindValue(':inclinacion', $inclinacion, PDO::PARAM_STR);
+    $result->bindValue(':ahuecamiento', $ahuecamiento, PDO::PARAM_STR);
+    $result->bindValue(':cable', $cable, PDO::PARAM_STR);
+    $result->bindValue(':luminaria', $luminaria, PDO::PARAM_STR);
+    $result->bindValue(':danios', $danios, PDO::PARAM_STR);
+    $result->bindValue(':veredas', $veredas, PDO::PARAM_STR);
+    $result->bindValue(':podas', $podas, PDO::PARAM_STR);
+    $result->bindValue(':raices', $raices, PDO::PARAM_STR);
+    $result->bindValue(':superficie', $superficie, PDO::PARAM_STR);
+    $result->bindValue(':afecto', $afecto, PDO::PARAM_STR);
+    $result->bindValue(':idCenso', $lastId, PDO::PARAM_INT);
+    $result->execute();
 
-  // usuario
-  $sql =
-    'INSERT INTO usuario (nombre, apellido,dni, idCenso) VALUES (:nombreU,:apellido,:dni, :idCenso)';
-  $result = $conn->prepare($sql);
-  $result->bindValue(':nombreU', $nombreU, PDO::PARAM_STR);
-  $result->bindValue(':apellido', $apellido, PDO::PARAM_STR);
-  $result->bindValue(':dni', $dni, PDO::PARAM_INT);
-  $result->bindValue(':idCenso', $lastId, PDO::PARAM_INT);
-  $result->execute();
+    // usuario
+    $sql =
+      'INSERT INTO usuario (nombre, apellido,dni, idCenso) VALUES (:nombreU,:apellido,:dni, :idCenso)';
+    $result = $conn->prepare($sql);
+    $result->bindValue(':nombreU', $nombreU, PDO::PARAM_STR);
+    $result->bindValue(':apellido', $apellido, PDO::PARAM_STR);
+    $result->bindValue(':dni', $dni, PDO::PARAM_INT);
+    $result->bindValue(':idCenso', $lastId, PDO::PARAM_INT);
+    $result->execute();
 
-  // Create the query
-  // hacemos el insert de la variable $data en el campo blob de la tabla
-  $sql = 'INSERT INTO imagen(idCenso, img) VALUES( :idCenso,:data)';
-  $result = $conn->prepare($sql);
-  $result->bindValue(':idCenso', $lastId, PDO::PARAM_INT);
-  $result->bindValue(':data', $data, PDO::PARAM_LOB);
-  $result->execute();
+    // Create the query
+    // hacemos el insert de la variable $data en el campo blob de la tabla
+    $sql = 'INSERT INTO imagen(idCenso, img) VALUES( :idCenso,:data)';
+    $result = $conn->prepare($sql);
+    $result->bindValue(':idCenso', $lastId, PDO::PARAM_INT);
+    $result->bindValue(':data', $data, PDO::PARAM_LOB);
+    $result->execute();
 
-  $conn->commit();
-  array_push($success, 'Todos los datos fueron insertados');
-} catch (PDOException $e) {
-  array_push($errors, 'Error del servidor: ' . $e->getMessage());
+    $conn->commit();
+    array_push($success, 'Todos los datos fueron insertados');
+  } catch (PDOException $e) {
+    array_push($errors, 'Error del servidor: ' . $e->getMessage());
+  }
 }
 ?>
 

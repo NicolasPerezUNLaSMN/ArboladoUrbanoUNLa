@@ -31,7 +31,7 @@
           <li class="nav-item">
             <a class="nav-link" href="" target="_blank">Tutoriales</a>
           </li><li class="nav-item">
-            <a class="nav-link" href="" target="/form.php">Subir un arbol</a>
+            <a class="nav-link" href="/form.php">Subir un arbol</a>
           </li>
         </ul>
 
