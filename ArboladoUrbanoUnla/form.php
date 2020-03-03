@@ -49,7 +49,7 @@
   <body>
     <hr class="my-5" />
     <div class="container">
-      <form class="needs-validation" novalidate action="/actionWebForm.php" method="post" enctype="multipart/form-data">
+      <form class="needs-validation" novalidate action="/actionForm.php" method="post" enctype="multipart/form-data">
         <div class="form-group">
           <label for="nombreU">Nombre</label>
           <input
