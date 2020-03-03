@@ -19,6 +19,9 @@
     <link href="css/mdb.min.css" rel="stylesheet" />
     <!-- Your custom styles (optional) -->
     <link href="css/style.min.css" rel="stylesheet" />
+    <!-- JQuery -->
+    <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+  
     <style>
       html,
       body {
@@ -806,6 +809,25 @@
           false
         );
       })();
+
+      window.onload = function() {
+        $('input[type="file"]').on("change", function() {
+        let filenames = [];
+        let files = document.getElementById("image").files;
+        if (files.length > 1) {
+          filenames.push("Archivos Seleccionados (" + files.length + ")");
+        } else {
+          for (let i in files) {
+            if (files.hasOwnProperty(i)) {
+              filenames.push(files[i].name);
+            }
+          }
+        }
+        $(this)
+          .next(".custom-file-label")
+          .html(filenames.join(","));
+      });
+    }   
     </script>
   </body>
 </html>
