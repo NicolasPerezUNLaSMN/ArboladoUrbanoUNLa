@@ -1,0 +1,17 @@
+{
+  "name": "arboladourbanounla",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "@prettier/plugin-php": "^0.11.2",
+    "prettier": "^1.19.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "format:php": "prettier --config=prettier.config.js --write --parser=php"
+  },
+  "author": "",
+  "license": "ISC"
+}
