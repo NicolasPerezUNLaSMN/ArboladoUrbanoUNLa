@@ -7,8 +7,8 @@
     <string name="tv_titulo">Arbolado Urbano - UNLa</string>
 
     <string name="btn_censar">Censar</string>
-    <string name="btn_verregistros">Ver/modificar registros</string>
-    <string name="btn_enviarregistros">Enviar registros</string>
+    <string name="btn_verregistros">Ver/Enviar censos</string>
+
 
     <string name="tv_tituloregistros">Arboles censados</string>
     <string name="tv_tituloenviarregistros">Envio de censo</string>
@@ -29,6 +29,9 @@
     <string name="et_distanciaplantas">Distancia entre plantas (cm)</string>
     <string name="et_distanciamuro">Distancia al muro (cm)</string>
     <string name="et_circunferencia">Circunferencia del arbol (cm)</string>
+    <string name="et_diametroDelArbol">Diametro del árbol (cm)</string>
+    <string name="et_altura">Altura del árbol(cm)</string>
+    <string name="et_distanciaAlCordon">Distancia al cordon (cm)</string>
     <string name="et_comentario">Comentario</string>
 
     <string name="btn_geo">Actualizar coordenadas</string>
@@ -36,11 +39,11 @@
     <string name="tv_longitud">Longitud:</string>
 
     <string name="btn_galeria">Ir a galeria</string>
-    <string name="btn_camara">Ir a camara</string>
+    <string name="btn_camara">Fomar una foto</string>
 
-    <string name="btn_editar">Editar</string>
+    <string name="btn_enviar">Enviar</string>
     <string name="btn_eliminar">Eliminar</string>
 
 
-    <string name="link">Nuestra web - <a href="https://arboladourbanounla.000webhostapp.com/">Visitanos</a></string>
+    <string name="link">Nuestra web - <a href="https://unla-arbolado-urbano.000webhostapp.com/">Visitanos</a></string>
 </resources>

@@ -21,6 +21,9 @@ public class ArbolActivity extends AppCompatActivity {
     private EditText et_distanciamuro;
     private EditText et_circunferencia;
     private Spinner s_cazuela;
+    private EditText et_diametroDelArbol;
+    private EditText et_altura;
+    private EditText et_distanciaAlCordon;
     private EditText et_comentario;
 
     @Override
@@ -34,6 +37,11 @@ public class ArbolActivity extends AppCompatActivity {
         et_distanciamuro = findViewById(R.id.et_distanciamuro);
         et_circunferencia = findViewById(R.id.et_circunferencia);
         s_cazuela = findViewById(R.id.s_cazuela);
+
+        et_diametroDelArbol = findViewById(R.id.et_diametroDelArbol);
+        et_altura = findViewById(R.id.et_altura);
+        et_distanciaAlCordon = findViewById(R.id.et_distanciaAlCordon);
+
         et_comentario = findViewById(R.id.et_comentario);
 
         String[] op_especie = {"Especie", "OTRO", "DESCONOCIDA",
@@ -408,6 +416,9 @@ public class ArbolActivity extends AppCompatActivity {
         String distanciamuro = et_distanciamuro.getText().toString();
         String circunferencia = et_circunferencia.getText().toString();
         String cazuela = s_cazuela.getSelectedItem().toString();
+        String diametroDelArbol = et_diametroDelArbol.getText().toString();
+        String altura= et_altura.getText().toString();
+        String distanciaAlCordon = et_distanciaAlCordon.getText().toString();
         String comentario = et_comentario.getText().toString();
 
         if (numeroarbol.isEmpty()) {
@@ -420,8 +431,14 @@ public class ArbolActivity extends AppCompatActivity {
                 distanciamuro = "0";
             if (circunferencia.isEmpty())
                 circunferencia = "0";
+            if (diametroDelArbol.isEmpty())
+                diametroDelArbol = "0";
+            if (altura.isEmpty())
+                altura = "0";
+            if (distanciaAlCordon.isEmpty())
+                distanciaAlCordon = "0";
 
-            long id = ArbolSQLite.getInstance(this).agregar(new Arbol(especie, Integer.parseInt(numeroarbol), Float.parseFloat(distanciaplantas), Float.parseFloat(distanciamuro), Float.parseFloat(circunferencia), cazuela, comentario));
+            long id = ArbolSQLite.getInstance(this).agregar(new Arbol(especie, Integer.parseInt(numeroarbol), Float.parseFloat(distanciaplantas), Float.parseFloat(distanciamuro), Float.parseFloat(circunferencia), cazuela,Float.parseFloat(diametroDelArbol),Float.parseFloat(altura),Float.parseFloat(distanciaAlCordon), comentario));
             Toast.makeText(getApplicationContext(), "ID registro: " + id, Toast.LENGTH_SHORT).show();
 
             Intent intent = new Intent(this, EstadoActivity.class);

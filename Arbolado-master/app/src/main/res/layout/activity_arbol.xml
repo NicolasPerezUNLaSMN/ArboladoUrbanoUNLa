@@ -77,6 +77,32 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
+
+            <EditText
+                android:id="@+id/et_diametroDelArbol"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/et_diametroDelArbol"
+                android:inputType="numberDecimal" />
+
+            <EditText
+                android:id="@+id/et_altura"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/et_altura"
+                android:inputType="numberDecimal" />
+
+            <EditText
+                android:id="@+id/et_distanciaAlCordon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/et_distanciaAlCordon"
+                android:inputType="numberDecimal" />
+
+
             <EditText
                 android:id="@+id/et_comentario"
                 android:layout_width="match_parent"

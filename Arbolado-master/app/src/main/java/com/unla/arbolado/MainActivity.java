@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void irAWeb(View v) {
-        Uri uri = Uri.parse("https://arboladourbanounla.000webhostapp.com//");
+        Uri uri = Uri.parse("https://unla-arbolado-urbano.000webhostapp.com//");
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         startActivity(intent);
     }
@@ -46,11 +47,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void enviarRegistros(View view) {
-        Intent intent = new Intent(this, EnviarRegistrosActivity.class);
-        startActivity(intent);
-
-    }
 
 
     @SuppressLint("NewApi")

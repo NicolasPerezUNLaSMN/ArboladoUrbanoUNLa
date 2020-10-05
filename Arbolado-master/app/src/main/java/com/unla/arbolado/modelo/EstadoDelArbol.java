@@ -18,11 +18,17 @@ public class EstadoDelArbol implements Serializable {
     private String veredas;
     private String podas;
 
+    private String raices;
+    private String superficieAfectada;
+    private String afecto;
+
+
+
     public EstadoDelArbol() {
 
     }
 
-    public EstadoDelArbol(String estadoSanitario, String inclinacion, String ahuecamiento, String cables, String luminaria, String daños, String veredas, String podas) {
+    public EstadoDelArbol(String estadoSanitario, String inclinacion, String ahuecamiento, String cables, String luminaria, String daños, String veredas, String podas,String raices, String superficieAfectada,String afecto) {
         this.estadoSanitario = estadoSanitario;
         this.inclinacion = inclinacion;
         this.ahuecamiento = ahuecamiento;
@@ -31,9 +37,12 @@ public class EstadoDelArbol implements Serializable {
         this.daños = daños;
         this.veredas = veredas;
         this.podas = podas;
+        this.raices = raices;
+        this.superficieAfectada = superficieAfectada;
+        this.afecto = afecto;
     }
 
-    public EstadoDelArbol(int idEstadoDelArbol, String estadoSanitario, String inclinacion, String ahuecamiento, String cables, String luminaria, String daños, String veredas, String podas) {
+    public EstadoDelArbol(int idEstadoDelArbol, String estadoSanitario, String inclinacion, String ahuecamiento, String cables, String luminaria, String daños, String veredas, String podas,String raices, String superficieAfectada,String afecto) {
         this.idEstadoDelArbol = idEstadoDelArbol;
         this.estadoSanitario = estadoSanitario;
         this.inclinacion = inclinacion;
@@ -43,6 +52,9 @@ public class EstadoDelArbol implements Serializable {
         this.daños = daños;
         this.veredas = veredas;
         this.podas = podas;
+        this.raices = raices;
+        this.superficieAfectada = superficieAfectada;
+        this.afecto = afecto;
     }
 
     public int getIdEstadoDelArbol() {
@@ -117,6 +129,31 @@ public class EstadoDelArbol implements Serializable {
         this.podas = podas;
     }
 
+
+    public String getRaices() {
+        return raices;
+    }
+
+    public void setRaices(String raices) {
+        this.raices = raices;
+    }
+
+    public String getSuperficieAfectada() {
+        return superficieAfectada;
+    }
+
+    public void setSuperficieAfectada(String superficieAfectada) {
+        this.superficieAfectada = superficieAfectada;
+    }
+
+    public String getAfecto() {
+        return afecto;
+    }
+
+    public void setAfecto(String afecto) {
+        this.afecto = afecto;
+    }
+
     public ContentValues toContentValues() {
         ContentValues values = new ContentValues();
         values.put(Contrato.EstadoDelArbolEntry.ESTADO_SANITARIO, estadoSanitario);
@@ -127,6 +164,9 @@ public class EstadoDelArbol implements Serializable {
         values.put(Contrato.EstadoDelArbolEntry.DAÑOS, daños);
         values.put(Contrato.EstadoDelArbolEntry.VEREDAS, veredas);
         values.put(Contrato.EstadoDelArbolEntry.PODAS, podas);
+        values.put(Contrato.EstadoDelArbolEntry.RAICES, raices);
+        values.put(Contrato.EstadoDelArbolEntry.SUPERFICIE_AFECTADA, superficieAfectada);
+        values.put(Contrato.EstadoDelArbolEntry.AFECTO, afecto);
         return values;
     }
 
@@ -143,6 +183,9 @@ public class EstadoDelArbol implements Serializable {
                 ", daños='" + daños + '\'' +
                 ", veredas='" + veredas + '\'' +
                 ", podas='" + podas + '\'' +
+                ", raices='" + raices + '\'' +
+                ", superficieAfectada='" + superficieAfectada + '\'' +
+                ", afecto='" + afecto + '\'' +
                 '}';
     }
 }

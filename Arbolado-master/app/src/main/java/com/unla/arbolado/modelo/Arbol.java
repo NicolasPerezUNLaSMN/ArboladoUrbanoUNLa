@@ -15,23 +15,33 @@ public class Arbol implements Serializable {
     private float distanciaAlMuro;
     private float circunferenciaDelArbol;
     private String cazuela;
+
+    private float diametroDelArbol;
+    private float altura;
+    private float distanciaAlCordon;
+
     private String comentario;
 
     public Arbol() {
 
     }
 
-    public Arbol(String especie, int numeroArbol, float distanciaEntrePlantas, float distanciaAlMuro, float circunferenciaDelArbol, String cazuela, String comentario) {
+    public Arbol(String especie, int numeroArbol, float distanciaEntrePlantas, float distanciaAlMuro, float circunferenciaDelArbol, String cazuela,
+                 float diametroDelArbol, float altura,float distanciaAlCordon,String comentario) {
         this.especie = especie;
         this.numeroArbol = numeroArbol;
         this.distanciaEntrePlantas = distanciaEntrePlantas;
         this.distanciaAlMuro = distanciaAlMuro;
         this.circunferenciaDelArbol = circunferenciaDelArbol;
         this.cazuela = cazuela;
+        this.diametroDelArbol = diametroDelArbol;
+        this.altura = altura;
+        this.distanciaAlCordon = distanciaAlCordon;
         this.comentario = comentario;
     }
 
-    public Arbol(int idArbol, String especie, int numeroArbol, float distanciaEntrePlantas, float distanciaAlMuro, float circunferenciaDelArbol, String cazuela, String comentario) {
+    public Arbol(int idArbol, String especie, int numeroArbol, float distanciaEntrePlantas, float distanciaAlMuro, float circunferenciaDelArbol, String cazuela,
+                 float diametroDelArbol, float altura,float distanciaAlCordon, String comentario) {
         this.idArbol = idArbol;
         this.especie = especie;
         this.numeroArbol = numeroArbol;
@@ -39,6 +49,9 @@ public class Arbol implements Serializable {
         this.distanciaAlMuro = distanciaAlMuro;
         this.circunferenciaDelArbol = circunferenciaDelArbol;
         this.cazuela = cazuela;
+        this.diametroDelArbol = diametroDelArbol;
+        this.altura = altura;
+        this.distanciaAlCordon = distanciaAlCordon;
         this.comentario = comentario;
     }
 
@@ -114,10 +127,37 @@ public class Arbol implements Serializable {
         values.put(Contrato.ArbolEntry.DISTANCIA_MURO, distanciaAlMuro);
         values.put(Contrato.ArbolEntry.CIRCUNFERENCIA_ARBOL, circunferenciaDelArbol);
         values.put(Contrato.ArbolEntry.CAZUELA, cazuela);
+        values.put(Contrato.ArbolEntry.DIAMETRO_DEL_ARBOL, diametroDelArbol);
+        values.put(Contrato.ArbolEntry.ALTURA, altura);
+        values.put(Contrato.ArbolEntry.DISTANCIA_AL_CORDON, distanciaAlCordon);
         values.put(Contrato.ArbolEntry.COMENTARIO, comentario);
         return values;
     }
 
+    public float getDiametroDelArbol() {
+        return diametroDelArbol;
+    }
+
+    public void setDiametroDelArbol(float diametroDelArbol) {
+        this.diametroDelArbol = diametroDelArbol;
+    }
+
+
+    public float getAltura() {
+        return altura;
+    }
+
+    public void setAltura(float altura) {
+        this.altura = altura;
+    }
+
+    public float getDistanciaAlCordon() {
+        return distanciaAlCordon;
+    }
+
+    public void setDistanciaAlCordon(float distanciaAlCordon) {
+        this.distanciaAlCordon = distanciaAlCordon;
+    }
 
     @Override
     public String toString() {
@@ -129,6 +169,9 @@ public class Arbol implements Serializable {
                 ", distanciaAlMuro=" + distanciaAlMuro +
                 ", circunferenciaDelArbol=" + circunferenciaDelArbol +
                 ", cazuela='" + cazuela + '\'' +
+                ", diametroDelArbol=" + diametroDelArbol +
+                ", altura=" + altura +
+                ", distanciaAlCordon=" + distanciaAlCordon +
                 ", comentario='" + comentario + '\'' +
                 '}';
     }

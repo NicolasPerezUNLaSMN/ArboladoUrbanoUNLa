@@ -22,6 +22,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.unla.arbolado.SQLite.CensoSQLite;
 import com.unla.arbolado.modelo.Censo;
@@ -42,6 +43,8 @@ public class CamaraActivity extends AppCompatActivity {
 
     private Bitmap bMap;
     ImageView ivFoto;
+
+    int contador = 0 ;
 
     final int COD_FOTO = 20;
     final String CARPETA_RAIZ = "Arbo";
@@ -104,6 +107,7 @@ public class CamaraActivity extends AppCompatActivity {
         Log.d(nombreImagen, "----tomarFoto: ");
 
         File fileImagen = new File(Environment.getExternalStorageDirectory(), RUTA_IMAGEN);
+
         boolean isCreada = fileImagen.exists();
 
         if(isCreada == false) {
@@ -111,7 +115,8 @@ public class CamaraActivity extends AppCompatActivity {
         }
 
         if(isCreada == true) {
-            nombreImagen = nombreImagen+ ".jpg";
+            nombreImagen = nombreImagen+ ".png";
+            contador++;
         }
 
         path = Environment.getExternalStorageDirectory()+File.separator+RUTA_IMAGEN+File.separator+nombreImagen;
@@ -152,13 +157,19 @@ public class CamaraActivity extends AppCompatActivity {
         }
     }
 
-    public void fotoGaleria(View view) {
 
-    }
 
     public void continuar(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+
+
+        if(contador>0) {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }else{
+
+            Toast.makeText(this, "UPPPS....Debe sacar una foto como mínimo!!!!", Toast.LENGTH_SHORT).show();
+
+        }
     }
 
 

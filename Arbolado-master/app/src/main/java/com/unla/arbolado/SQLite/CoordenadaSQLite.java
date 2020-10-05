@@ -35,7 +35,7 @@ public class CoordenadaSQLite extends AdminSQLite {
         Coordenada coordenada = null;
 
         if (cursor.moveToFirst()) {
-            coordenada = new Coordenada(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2));
+            coordenada = new Coordenada(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2), cursor.getString(3));
         }
 
         return coordenada;
@@ -47,7 +47,7 @@ public class CoordenadaSQLite extends AdminSQLite {
         List<Coordenada> coordenadas = new ArrayList<>();
 
         while (cursor.moveToNext()) {
-            coordenadas.add(new Coordenada(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2)));
+            coordenadas.add(new Coordenada(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2),  cursor.getString(3)));
         }
 
         return coordenadas;

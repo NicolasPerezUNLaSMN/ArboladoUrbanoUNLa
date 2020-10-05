@@ -57,6 +57,9 @@ public class Contrato {
         public static final String DISTANCIA_MURO = "distanciaAlMuro";
         public static final String CIRCUNFERENCIA_ARBOL = "circunferenciaDelArbol";
         public static final String CAZUELA = "cazuela";
+        public static final String DIAMETRO_DEL_ARBOL= "diametroDelArbol";
+        public static final String ALTURA = "altura";
+        public static final String DISTANCIA_AL_CORDON = "distanciaAlCordon";
         public static final String COMENTARIO = "comentario";
         public static final String CREATE = "CREATE TABLE " + TABLA +
                 "( " + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -66,6 +69,9 @@ public class Contrato {
                 + DISTANCIA_MURO + " REAL, "
                 + CIRCUNFERENCIA_ARBOL + " REAL, "
                 + CAZUELA + " TEXT, "
+                + DIAMETRO_DEL_ARBOL + " REAL, "
+                + ALTURA + " REAL, "
+                + DISTANCIA_AL_CORDON + " REAL, "
                 + COMENTARIO + " TEXT ) ";
         public static final String DROP = "DROP TABLE IF EXISTS " + TABLA;
         public static final String SELECT = "SELECT " + ID + ", "
@@ -75,6 +81,9 @@ public class Contrato {
                 + DISTANCIA_MURO + ", "
                 + CIRCUNFERENCIA_ARBOL + ", "
                 + CAZUELA + ", "
+                + DIAMETRO_DEL_ARBOL+ ", "
+                + ALTURA + ", "
+                + DISTANCIA_AL_CORDON+ ", "
                 + COMENTARIO + " FROM "
                 + TABLA;
     }
@@ -90,6 +99,10 @@ public class Contrato {
         public static final String DAÑOS = "daños";
         public static final String VEREDAS = "veredas";
         public static final String PODAS = "podas";
+        public static final String RAICES = "raices";
+        public static final String SUPERFICIE_AFECTADA = "superficieAfectada";
+        public static final String AFECTO = "afecto";
+
         public static final String CREATE = "CREATE TABLE " + TABLA +
                 "( " + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + ESTADO_SANITARIO + " TEXT, "
@@ -99,7 +112,10 @@ public class Contrato {
                 + LUMINARIA + " TEXT, "
                 + DAÑOS + " TEXT, "
                 + VEREDAS + " TEXT, "
-                + PODAS + " TEXT ) ";
+                + PODAS + " TEXT, "
+                + RAICES + " TEXT, "
+                + SUPERFICIE_AFECTADA + " TEXT, "
+                + AFECTO + " TEXT ) ";
         public static final String DROP = "DROP TABLE IF EXISTS " + TABLA;
         public static final String SELECT = "SELECT " + ID + ", "
                 + ESTADO_SANITARIO + ", "
@@ -109,7 +125,10 @@ public class Contrato {
                 + LUMINARIA + ", "
                 + DAÑOS + ", "
                 + VEREDAS + ", "
-                + PODAS + " FROM "
+                + PODAS + ", "
+                + RAICES + ", "
+                + SUPERFICIE_AFECTADA + ", "
+                + AFECTO + " FROM "
                 + TABLA;
     }
 
@@ -118,14 +137,17 @@ public class Contrato {
         public static final String ID = "idCoordenada";
         public static final String LATITUD = "latitud";
         public static final String LONGITUD = "longitud";
+        public static final String DIRECCION = "direccion";
         public static final String CREATE = "CREATE TABLE " + TABLA +
                 "( " + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + LATITUD + " TEXT, "
-                + LONGITUD + " TEXT ) ";
+                + LONGITUD + " TEXT,"
+            + DIRECCION +" TEXT ) ";
         public static final String DROP = "DROP TABLE IF EXISTS " + TABLA;
         public static final String SELECT = "SELECT " + ID + ", "
                 + LATITUD + ", "
-                + LONGITUD + " FROM "
+                + LONGITUD + ", "
+                +DIRECCION + " FROM "
                 + TABLA;
     }
 

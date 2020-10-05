@@ -257,13 +257,13 @@
         android:layout_marginBottom="5dp">
 
         <Button
-            android:id="@+id/btn_editar"
+            android:id="@+id/btn_enviar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@color/colorPrimaryDark"
             android:textColor="#fff"
-            android:text="@string/btn_editar" />
+            android:text="@string/btn_enviar" />
 
         <Button
             android:id="@+id/btn_eliminar"

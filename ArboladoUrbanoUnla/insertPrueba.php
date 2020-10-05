@@ -6,6 +6,7 @@ $fechaHora=$_POST['fechaHora'];
 //Variables a insertar coordenada
 $latitud=$_POST['latitud'];
 $longitud=$_POST['longitud'];
+$direccion=$_POST['direccion'];
 
 //Variables a insertar calle
 $nombre=$_POST['nombre'];
@@ -21,6 +22,9 @@ $distanciaEntrePlantas=$_POST['distanciaEntrePlantas'];
 $distanciaAlMuro=$_POST['distanciaAlMuro'];
 $circunferenciaDelArbol=$_POST['circunferenciaDelArbol'];
 $cazuela=$_POST['cazuela'];
+$diametroDelArbol=$_POST['diametroDelArbol'];
+$altura=$_POST['altura'];
+$distanciaAlCordon=$_POST['distanciaAlCordon'];
 $comentario=$_POST['comentario'];
 
 
@@ -33,6 +37,9 @@ $luminaria=$_POST['luminaria'];
 $danios=$_POST['danios'];
 $veredas=$_POST['veredas'];
 $podas=$_POST['podas'];
+$raices=$_POST['raices'];
+$superficieAfectada=$_POST['superficieAfectada'];
+$afecto=$_POST['afecto'];
 
 
 //variables a insertar usuario
@@ -42,28 +49,39 @@ $dni=(int)$_POST['dni'];
 
 
 
+include("conectar.php");
 
 
+//$servername = "localhost";
+//$username = "id14851784_arboladouser";
+//$password = "_PAJ~0xns[wSb)}u";
+//$database = "id14851784_arbolado";
 
-$servername = "localhost";
-$username = "id11206201_mipc_24624265";
-$password = "arboladoroot";
-$database = "id11206201_mipc_24624265_arbolado";
+
+//cantidad de imagenes
+$cantidadDeImagenes=(int)$_POST['cantidadDeImagenes'];
 
 
+for ($i = 0; $i < $cantidadDeImagenes; $i++) {
 define('UPLOAD_DIR', 'images/');
-	$img = $_POST['image'];
-	$img = str_replace('data:image/png;base64,', '', $img);
-	$img = str_replace(' ', '+', $img);
-	$data = base64_decode($img);
-	$file = UPLOAD_DIR . uniqid() . '.png';
-	$success = file_put_contents($file, $data);
+	$imgg = $_POST['image_'.($i)];
+	$imgg = str_replace('data:image/png;base64,', '', $imgg);
+	$imgg = str_replace(' ', '+', $imgg);
+	$img[$i] = base64_decode($imgg);
+	$file[$i] = UPLOAD_DIR . uniqid() . '.png';
+	$success = file_put_contents($file[$i], $img[$i]);
+}
+
+
 
 // Read the image bytes into the $data variable
 //leemos la imagen como bytes y la grabamos en $data
 //$fh = fopen("arbolPrueba.jpg", "r");
 //$data = addslashes(fread($fh, filesize("arbolPrueba.jpg")));
 //fclose($fh);
+
+
+
 
 try {
     $conn = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
@@ -77,10 +95,11 @@ $result->execute();
 $lastId = $conn->lastInsertId();
 
 // coordenada
-$sql = 'INSERT INTO coordenada (latitud, longitud, idCenso) VALUES (:latitud, :longitud, :idCenso)';
+$sql = 'INSERT INTO coordenada (latitud, longitud,direccion,  idCenso) VALUES (:latitud, :longitud,:direccion, :idCenso)';
 $result = $conn->prepare($sql);
 $result->bindValue(':latitud', $latitud, PDO::PARAM_STR);
 $result->bindValue(':longitud', $longitud, PDO::PARAM_STR);
+$result->bindValue(':direccion', $direccion, PDO::PARAM_STR);
 $result->bindValue(':idCenso', $lastId, PDO::PARAM_INT);
 $result->execute();
 
@@ -97,7 +116,7 @@ $result->bindValue(':idCenso', $lastId, PDO::PARAM_INT);
 $result->execute();
 
 // arbol
-$sql = 'INSERT INTO arbol (especie,numeroArbol,distanciaEntrePlantas, distanciaAlMuro,circunferenciaDelArbol, cazuela,comentario, idCenso) VALUES (:especie,:numeroArbol,:distanciaEntrePlantas, :distanciaAlMuro,:circunferenciaDelArbol, :cazuela,:comentario, :idCenso)';
+$sql = 'INSERT INTO arbol (especie,numeroArbol,distanciaEntrePlantas, distanciaAlMuro,circunferenciaDelArbol, cazuela,diametroDelArbol, altura, distanciaAlCordon, comentario, idCenso) VALUES (:especie,:numeroArbol,:distanciaEntrePlantas, :distanciaAlMuro,:circunferenciaDelArbol, :cazuela, :diametroDelArbol, :altura, :distanciaAlCordon, :comentario, :idCenso)';
 $result = $conn->prepare($sql);
 $result->bindValue(':especie', $especie, PDO::PARAM_STR);
 $result->bindValue(':numeroArbol', $numeroArbol, PDO::PARAM_INT);
@@ -105,13 +124,16 @@ $result->bindValue(':distanciaEntrePlantas', $distanciaEntrePlantas, PDO::PARAM_
 $result->bindValue(':distanciaAlMuro', $distanciaAlMuro, PDO::PARAM_STR);
 $result->bindValue(':circunferenciaDelArbol', $circunferenciaDelArbol, PDO::PARAM_STR);
 $result->bindValue(':cazuela', $cazuela, PDO::PARAM_STR);
+$result->bindValue(':diametroDelArbol', $diametroDelArbol, PDO::PARAM_STR);
+$result->bindValue(':altura', $altura, PDO::PARAM_STR);
+$result->bindValue(':distanciaAlCordon', $distanciaAlCordon, PDO::PARAM_STR);
 $result->bindValue(':comentario', $comentario, PDO::PARAM_STR);
 $result->bindValue(':idCenso', $lastId, PDO::PARAM_INT);
 $result->execute();
 
 
 // estado del arbol
-$sql = 'INSERT INTO estadodelarbol (estadoSanitario,inclinacion,ahuecamiento,cable,luminaria,danios,veredas,podas, idCenso) VALUES (:estadoSanitario,:inclinacion,:ahuecamiento,:cable,:luminaria,:danios,:veredas,:podas, :idCenso)';
+$sql = 'INSERT INTO estadodelarbol (estadoSanitario,inclinacion,ahuecamiento,cable,luminaria,danios,veredas,podas,raices, superficieAfectada, afecto, idCenso) VALUES (:estadoSanitario,:inclinacion,:ahuecamiento,:cable,:luminaria,:danios,:veredas,:podas, :raices, :superficieAfectada, :afecto, :idCenso)';
 $result = $conn->prepare($sql);
 $result->bindValue(':estadoSanitario', $estadoSanitario, PDO::PARAM_STR);
 $result->bindValue(':inclinacion', $inclinacion, PDO::PARAM_STR);
@@ -121,6 +143,9 @@ $result->bindValue(':luminaria', $luminaria, PDO::PARAM_STR);
 $result->bindValue(':danios', $danios, PDO::PARAM_STR);
 $result->bindValue(':veredas', $veredas, PDO::PARAM_STR);
 $result->bindValue(':podas', $podas, PDO::PARAM_STR);
+$result->bindValue(':raices', $raices, PDO::PARAM_STR);
+$result->bindValue(':superficieAfectada', $superficieAfectada, PDO::PARAM_STR);
+$result->bindValue(':afecto', $afecto, PDO::PARAM_STR);
 $result->bindValue(':idCenso', $lastId, PDO::PARAM_INT);
 $result->execute();
 
@@ -134,13 +159,25 @@ $result->bindValue(':dni', $dni, PDO::PARAM_INT);
 $result->bindValue(':idCenso', $lastId, PDO::PARAM_INT);
 $result->execute();
 
+
+
+
+for ($i = 0; $i < $cantidadDeImagenes; $i++) {
 // Create the query
 // hacemos el insert de la variable $data en el campo blob de la tabla
-$sql = 'INSERT INTO imagen(idCenso, img) VALUES( :idCenso,:data)';
+$sql = 'INSERT INTO imagen(idCenso, img, nombreFoto) VALUES( :idCenso,:img, :nombreFoto)';
 $result = $conn->prepare($sql);
 $result->bindValue(':idCenso', $lastId, PDO::PARAM_INT);
-$result->bindValue(':data', $data, PDO::PARAM_LOB);
+$result->bindValue(':img', $img[$i], PDO::PARAM_LOB);
+$result->bindValue(':nombreFoto', $file[$i], PDO::PARAM_STR);
+
 $result->execute();
+
+
+}
+
+
+
 
 
 

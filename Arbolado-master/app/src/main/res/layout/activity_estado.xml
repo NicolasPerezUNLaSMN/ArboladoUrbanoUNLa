@@ -74,6 +74,22 @@
                 android:id="@+id/s_podas"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+
+            <Spinner
+                android:id="@+id/s_raices"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+            <Spinner
+                android:id="@+id/s_superficieAfectada"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <Spinner
+                android:id="@+id/s_afecto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
         </LinearLayout>
     </ScrollView>
 

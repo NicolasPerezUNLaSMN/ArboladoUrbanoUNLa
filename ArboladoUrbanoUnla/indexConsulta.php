@@ -120,10 +120,7 @@
          <?php
 
 
-$servername = "localhost";
-$username = "id11206201_mipc_24624265";
-$password = "arboladoroot";
-$database = "id11206201_mipc_24624265_arbolado";
+include("conectar.php");
 
 $conn = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
 

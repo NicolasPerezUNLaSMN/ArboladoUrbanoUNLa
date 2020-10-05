@@ -28,6 +28,32 @@ Contraseña:arboladoroot
 
 
 
+------------------------------------backup----------------------------
+Nombre del Host:
+
+files.000webhost.com
+
+Puerto:
+
+21
+
+Usuario:
+
+unla-arbolado-urbano
+
+pass:Nishikori3
+
+web: unla-arbolado-urbano.000webhostapp.com
+
+Base de datos: 
+
+Nombre de la Base de Datos	Usuario de la Base de Datos	Host de la Base de Datos	 
+id14851784_arbolado		id14851784_arboladouser		localhost
+
+
+
+
+
 
 
 -------------------------------------------------------------------

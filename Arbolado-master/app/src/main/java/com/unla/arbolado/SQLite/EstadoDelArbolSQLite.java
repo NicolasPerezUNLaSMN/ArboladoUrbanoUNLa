@@ -3,6 +3,7 @@ package com.unla.arbolado.SQLite;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.unla.arbolado.modelo.EstadoDelArbol;
 
@@ -26,6 +27,9 @@ public class EstadoDelArbolSQLite extends AdminSQLite {
 
     public long agregar(EstadoDelArbol estadoDelArbol) {
         SQLiteDatabase db = getWritableDatabase();
+
+        Log.d("INSERT---->", estadoDelArbol.toString());
+
         return db.insert(Contrato.EstadoDelArbolEntry.TABLA, null, estadoDelArbol.toContentValues());
     }
 
@@ -37,7 +41,7 @@ public class EstadoDelArbolSQLite extends AdminSQLite {
         if (cursor.moveToFirst()) {
             estado = new EstadoDelArbol(Integer.parseInt(cursor.getString(0)), cursor.getString(1),
                     cursor.getString(2), cursor.getString(3), cursor.getString(4),
-                    cursor.getString(5) ,cursor.getString(6), cursor.getString(7), cursor.getString(8));
+                    cursor.getString(5) ,cursor.getString(6), cursor.getString(7), cursor.getString(8), cursor.getString(9), cursor.getString(10), cursor.getString(11));
         }
 
         return estado;
@@ -51,7 +55,7 @@ public class EstadoDelArbolSQLite extends AdminSQLite {
         while (cursor.moveToNext()) {
             estados.add(new EstadoDelArbol(Integer.parseInt(cursor.getString(0)), cursor.getString(1),
                     cursor.getString(2), cursor.getString(3), cursor.getString(4),
-                    cursor.getString(5) ,cursor.getString(6), cursor.getString(7), cursor.getString(8)));
+                    cursor.getString(5) ,cursor.getString(6), cursor.getString(7), cursor.getString(8), cursor.getString(9), cursor.getString(10), cursor.getString(11)));
         }
 
         return estados;

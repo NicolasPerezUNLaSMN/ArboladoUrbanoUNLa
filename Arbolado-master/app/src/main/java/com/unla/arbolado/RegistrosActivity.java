@@ -107,16 +107,19 @@ public class RegistrosActivity extends AppCompatActivity {
 
 
         for (Censo censo : censos) {
+
+
+            Log.d("....> Para mostrar: ", censo.toString());
             if (censo.getCalle().getNombre().isEmpty()) {
-                info.add(censo.getUsuario().getApellido() + "\n" +
-                        censo.getArbol().getNumeroArbol() + " " + censo.getArbol().getEspecie() + "\n" +
-                        censo.getCoordenada().getLatitud() + " " + censo.getCoordenada().getLongitud());
+                info.add("Numero de registro interno: " +censo.getIdCenso() + "\n" +
+                        "Numero de arbol: " +censo.getArbol().getNumeroArbol() + " Especie: " + censo.getArbol().getEspecie() + "\n" +
+                        "Latitud: " +censo.getCoordenada().getLatitud() + " Longitud: " + censo.getCoordenada().getLongitud() +" \n" +"DNI Usuario: " +censo.getUsuario().getDni() +"\nCantidad de fotos: " +censo.cantidadDeFotosParaEnviar());
             }
             else {
-                info.add(censo.getUsuario().getApellido() + "\n" +
-                        censo.getArbol().getNumeroArbol() + " " + censo.getArbol().getEspecie() + "\n" +
-                        censo.getCalle().getNombre() + " " + censo.getCalle().getNumeroFrente() + "\n" +
-                        censo.getCoordenada().getLatitud() + " " + censo.getCoordenada().getLongitud());
+                info.add("Numero de registro interno: " +censo.getIdCenso() + "\n" +
+                        "Numero de arbol: " +censo.getArbol().getNumeroArbol() + " Especie: " + censo.getArbol().getEspecie() + "\n" +
+                        "Latitud: " +censo.getCoordenada().getLatitud() + " Longitud: " + censo.getCoordenada().getLongitud() +" \n" +"Calle: " + censo.getCalle().getNombre() +"\n" +"DNI Usuario: " +censo.getUsuario().getDni()  +"\nCantidad de fotos: " +censo.cantidadDeFotosParaEnviar());
+            }
             }
         }
 
@@ -124,9 +127,6 @@ public class RegistrosActivity extends AppCompatActivity {
 
 
 
-
-
-    }
 
 
     private void ejecutarServicio(String URL, final Censo c){

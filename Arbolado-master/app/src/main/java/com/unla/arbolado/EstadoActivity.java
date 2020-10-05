@@ -22,6 +22,9 @@ public class EstadoActivity extends AppCompatActivity {
     private Spinner s_danos;
     private Spinner s_veredas;
     private Spinner s_podas;
+    private Spinner s_raices;
+    private Spinner s_superficieAfectada;
+    private Spinner s_afecto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +39,9 @@ public class EstadoActivity extends AppCompatActivity {
         s_danos = findViewById(R.id.s_danos);
         s_veredas = findViewById(R.id.s_veredas);
         s_podas = findViewById(R.id.s_podas);
+        s_raices = findViewById(R.id.s_raices);
+        s_superficieAfectada = findViewById(R.id.s_superficieAfectada);
+        s_afecto = findViewById(R.id.s_afecto);
 
         String[] op_estadosanitario = {"Estado Sanitario","S", "D", "M"};
         String[] op_inclinacion = {"Inclinacion","NO", "LI", "MI"};
@@ -45,6 +51,12 @@ public class EstadoActivity extends AppCompatActivity {
         String[] op_danos = {"Daños","SI", "NO"};
         String[] op_veredas = {"Veredas","NO", "L", "I"};
         String[] op_podas = {"Podas","NO", "L", "S"};
+        String[] op_raices = {"NORMAL", "20%", "40", "60","80","100"};
+        String[] op_supercieAfectada= {"Metros Cuadrados:" ,"<1" ,"<2" ,"<3"+"<4","<5",">5", ">10"};
+        String[] op_afecto = {"Afecto","Caños", "desagües", "paredes", "piso","otro"};
+
+
+
 
         ArrayAdapter<String> ad_estadosanitario = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, op_estadosanitario);
         ArrayAdapter<String> ad_inclinacion = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, op_inclinacion);
@@ -54,6 +66,9 @@ public class EstadoActivity extends AppCompatActivity {
         ArrayAdapter<String> ad_danos = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, op_danos);
         ArrayAdapter<String> ad_veredas = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, op_veredas);
         ArrayAdapter<String> ad_podas = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, op_podas);
+        ArrayAdapter<String> ad_raices = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, op_raices);
+        ArrayAdapter<String> ad_superficieAfectada = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, op_supercieAfectada);
+        ArrayAdapter<String> ad_afecto = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, op_afecto);
 
         s_estadosanitario.setAdapter(ad_estadosanitario);
         s_inclinacion.setAdapter(ad_inclinacion);
@@ -63,6 +78,9 @@ public class EstadoActivity extends AppCompatActivity {
         s_danos.setAdapter(ad_danos);
         s_veredas.setAdapter(ad_veredas);
         s_podas.setAdapter(ad_podas);
+        s_raices.setAdapter(ad_raices);
+        s_superficieAfectada.setAdapter(ad_superficieAfectada);
+        s_afecto.setAdapter(ad_afecto);
     }
 
     public void continuar(View view) {
@@ -74,8 +92,11 @@ public class EstadoActivity extends AppCompatActivity {
         String danos = s_danos.getSelectedItem().toString();
         String veredas = s_veredas.getSelectedItem().toString();
         String podas = s_podas.getSelectedItem().toString();
+        String raices= s_raices.getSelectedItem().toString();
+        String superficieAfectada = s_superficieAfectada.getSelectedItem().toString();
+        String afecto= s_afecto.getSelectedItem().toString();
 
-        long id = EstadoDelArbolSQLite.getInstance(this).agregar(new EstadoDelArbol(estadosanitario, inclinacion, ahuecamiento, cables, luminaria, danos, veredas, podas));
+        long id = EstadoDelArbolSQLite.getInstance(this).agregar(new EstadoDelArbol(estadosanitario, inclinacion, ahuecamiento, cables, luminaria, danos, veredas, podas, raices, superficieAfectada, afecto));
         Toast.makeText(getApplicationContext(), "ID registro: " + id, Toast.LENGTH_SHORT).show();
 
         Intent intent = new Intent(this, CoordenadaActivity.class);

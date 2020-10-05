@@ -37,7 +37,7 @@ public class ArbolSQLite extends AdminSQLite {
         if (cursor.moveToFirst()) {
             arbol = new Arbol(Integer.parseInt(cursor.getString(0)), cursor.getString(1),
                     Integer.parseInt(cursor.getString(2)), Float.parseFloat(cursor.getString(3)), Float.parseFloat(cursor.getString(4)),
-                    Float.parseFloat(cursor.getString(5)), cursor.getString(6), cursor.getString(7));
+                    Float.parseFloat(cursor.getString(5)), cursor.getString(6), Float.parseFloat(cursor.getString(7)), Float.parseFloat(cursor.getString(8)), Float.parseFloat(cursor.getString(9)) ,cursor.getString(10));
         }
 
         return arbol;
@@ -51,7 +51,7 @@ public class ArbolSQLite extends AdminSQLite {
         while (cursor.moveToNext()) {
             arboles.add(new Arbol(Integer.parseInt(cursor.getString(0)), cursor.getString(1),
                     Integer.parseInt(cursor.getString(2)), Float.parseFloat(cursor.getString(3)), Float.parseFloat(cursor.getString(4)),
-                    Float.parseFloat(cursor.getString(5)), cursor.getString(6), cursor.getString(7)));
+                    Float.parseFloat(cursor.getString(5)), cursor.getString(6),Float.parseFloat(cursor.getString(7)),Float.parseFloat(cursor.getString(8)),Float.parseFloat(cursor.getString(9)), cursor.getString(10)));
         }
 
         return arboles;

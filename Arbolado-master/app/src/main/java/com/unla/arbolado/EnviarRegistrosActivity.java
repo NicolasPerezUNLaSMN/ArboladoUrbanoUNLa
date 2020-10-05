@@ -1,8 +1,10 @@
 package com.unla.arbolado;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Base64;
@@ -26,16 +28,25 @@ import com.android.volley.toolbox.Volley;
 import com.unla.arbolado.SQLite.CensoSQLite;
 import com.unla.arbolado.modelo.Censo;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.net.ssl.HttpsURLConnection;
 
 
 public class EnviarRegistrosActivity extends AppCompatActivity {
@@ -44,18 +55,26 @@ public class EnviarRegistrosActivity extends AppCompatActivity {
     private List<Censo> censos;
     private List<String> info;
 
+    int censosEnviardos = 0;
+    int censosErroneos = 0;
+
+
+
+
     private boolean errorConectar = false;
 
     final String CARPETA_RAIZ = "Arbo";
     final String CARPETA_IMAGENES = "lado";
     final String RUTA_IMAGEN = CARPETA_RAIZ + CARPETA_IMAGENES;
 
+
+
     //Lista de imagenes que aun no se subieron
     List<String> list = new ArrayList<String>();
     //obtiene ruta donde se encuentran los archivos.
 
 
-    private ImageView imageView;
+
 
 
 
@@ -65,7 +84,9 @@ public class EnviarRegistrosActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enviarregistros);
 
-        imageView = (ImageView) findViewById(R.id.image_view);
+
+
+
 
     }
 
@@ -75,22 +96,37 @@ public class EnviarRegistrosActivity extends AppCompatActivity {
 
         censos = CensoSQLite.getInstance(this).traer(this);
 
+        int cantidadAEnviar = cantidadAEnviar();
+
+        int tiempoEstimado = cantidadAEnviar()*15;
+
+        Toast.makeText(this, "Usted tiene la siguiente cantidad de censos sin enviar: "+cantidadAEnviar() , Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Esto demorará alrededor de  "+tiempoEstimado +" segundos...", Toast.LENGTH_SHORT).show();
 
 
+        //int bucle = 0;
+        //for(Censo c: censos){
 
-
-        for(Censo c: censos){
 
 
 
             //ejecutarServicio("http://192.168.0.7:80/ArboladoUrbanoUnla/insert1.php", c);
 
 
-            ejecutarServicio("https://arboladourbanounla.000webhostapp.com/insertPrueba.php", c);
+            ejecutarServicio("https://unla-arbolado-urbano.000webhostapp.com/insertPrueba.php", censos, cantidadAEnviar);
+
+
+
+
 		
 		//Si no hubo error borro
-                if(!errorConectar){
-                CensoSQLite.getInstance(this).eliminar(c.getIdCenso());}
+                //if(!errorConectar){
+                //CensoSQLite.getInstance(this).eliminar(c.getIdCenso());
+               // }
+
+
+            //tiempoEstimado = tiempoEstimado -15;
+            //Toast.makeText(this, "Faltan....  "+tiempoEstimado +" segundos...", Toast.LENGTH_SHORT).show();
 
 
 
@@ -99,37 +135,49 @@ public class EnviarRegistrosActivity extends AppCompatActivity {
 
 
 
-
-
-    }
+    //}
 
 
 
 
-    private void ejecutarServicio(String URL, final Censo c){
+    private void ejecutarServicio(String URL, final List<Censo> censos, int cantidad) {
 
-        errorConectar = false;
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>(){
+
+        for (Censo c : censos){
+
+            errorConectar = false;
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
 
             @Override
-            public void onResponse(String response){
-                Toast.makeText(getApplicationContext(), "OPERACION EXITOSA - Se almaceno correctamente", Toast.LENGTH_SHORT).show();
+            public void onResponse(String response) {
+
+                censosEnviardos++;
+                Toast.makeText(getApplicationContext(), "PROGRESO: " + (((censosEnviardos + censosErroneos) * 100) / (cantidad)) + "%...", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Se han enviado satisfactoriamente: " + censosEnviardos + " censos.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Ha fallado el enviado de: " + censosErroneos + " censos.", Toast.LENGTH_SHORT).show();
+                CensoSQLite.getInstance(getApplicationContext()).eliminar(c.getIdCenso());
+
+
             }
-        }, new Response.ErrorListener(){
+        }, new Response.ErrorListener() {
             @Override
-            public void onErrorResponse(VolleyError error){
-		errorConectar = true;
-                Toast.makeText(getApplicationContext(), "Ha fallado la conexion", Toast.LENGTH_SHORT).show();
-                
+            public void onErrorResponse(VolleyError error) {
+                errorConectar = true;
+                censosErroneos++;
+                Toast.makeText(getApplicationContext(), "PROGRESO: " + (((censosEnviardos + censosErroneos) * 100) / (cantidad)) + "%...", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Se han enviado satisfactoriamente: " + censosEnviardos + " censos.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Ha fallado el enviado de: " + censosErroneos + " censos.", Toast.LENGTH_SHORT).show();
+
             }
 
-        }){
+        }) {
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError{
+            protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> parametros = new HashMap<String, String>();
 
 
                 //muestro los parametros del censo a ver como llegaron hasta aca
+                Log.d("---INTENTO ENVIAR---", String.valueOf(c.getIdCenso()));
                 Log.d("myTag - arbol", c.getArbol().toString());
                 Log.d("myTag - calle", c.getCalle().toString());
                 Log.d("myTag - coordenada", c.getCoordenada().toString());
@@ -143,9 +191,8 @@ public class EnviarRegistrosActivity extends AppCompatActivity {
                 //obtiene nombres de archivos dentro del directorio.
                 File file[] = fileImagen.listFiles();
 
-                for (int i=0; i < file.length; i++)
-                {
-                    Log.d("Files", "Archivo -------->>: " + file[i].getName());
+                for (int i = 0; i < file.length; i++) {
+                   // Log.d("Files", "Archivo -------->>: " + file[i].getName());
                     //Agrega nombres de archivos a List para ser agregado a adapter.
                     list.add(file[i].getName());
 
@@ -155,18 +202,22 @@ public class EnviarRegistrosActivity extends AppCompatActivity {
                 ArrayList<String> fotosASubir = new ArrayList<>();
 
                 //muestro la lista
-                for (String direccion:list){
+                for (String direccion : list) {
 
-                    if((fileImagen + File.separator +direccion).contains("reg_"+c.getIdCenso()+"_")){
-                        fotosASubir.add(fileImagen + File.separator +direccion);
+                   // Log.d("Debo enviar: ", direccion);
+                    //Log.d("comparo con: ", fileImagen + File.separator + direccion);
+
+                    if ((fileImagen + File.separator + direccion).contains("reg_" + c.getIdCenso() + "_")) {
+
+                        Log.d("PARA ENVIAR: ", fileImagen + File.separator + direccion);
+                        fotosASubir.add(fileImagen + File.separator + direccion);
                     }
 
                 }
 
 
-
                 //Fecha y hora del censo
-               parametros.put("fechaHora", traerFechaCortaConHora(new GregorianCalendar()));
+                parametros.put("fechaHora", traerFechaCortaConHora(new GregorianCalendar()));
 
                 //parametros.put("fechaHora", "22121212");
                 //parametros coordenada
@@ -176,17 +227,22 @@ public class EnviarRegistrosActivity extends AppCompatActivity {
                 //parametros calle
                 parametros.put("nombre", c.getCalle().getNombre());
                 parametros.put("numeroFrente", String.valueOf(c.getCalle().getNumeroFrente()));
-                parametros.put("anchoVereda",  Float.toString(c.getCalle().getAnchoVereda()));
+                parametros.put("anchoVereda", Float.toString(c.getCalle().getAnchoVereda()));
                 parametros.put("paridad", c.getCalle().getParidad());
                 parametros.put("transito", c.getCalle().getTransito());
 
                 //parametros arbol
                 parametros.put("especie", c.getArbol().getEspecie());
                 parametros.put("numeroArbol", String.valueOf(c.getArbol().getNumeroArbol()));
-                parametros.put("distanciaEntrePlantas",  Float.toString(c.getArbol().getDistanciaEntrePlantas()));
-                parametros.put("distanciaAlMuro",  Float.toString(c.getArbol().getDistanciaAlMuro()));
-                parametros.put("circunferenciaDelArbol",  Float.toString(c.getArbol().getCircunferenciaDelArbol()));
+                parametros.put("distanciaEntrePlantas", Float.toString(c.getArbol().getDistanciaEntrePlantas()));
+                parametros.put("distanciaAlMuro", Float.toString(c.getArbol().getDistanciaAlMuro()));
+                parametros.put("circunferenciaDelArbol", Float.toString(c.getArbol().getCircunferenciaDelArbol()));
                 parametros.put("cazuela", c.getArbol().getCazuela());
+
+                parametros.put("diametroDelArbol", Float.toString(c.getArbol().getDiametroDelArbol()));
+                parametros.put("altura", Float.toString(c.getArbol().getAltura()));
+                parametros.put("distanciaAlCordon", Float.toString(c.getArbol().getDistanciaAlCordon()));
+
                 parametros.put("comentario", c.getArbol().getComentario());
 
                 //parametros estado del arbol
@@ -199,44 +255,77 @@ public class EnviarRegistrosActivity extends AppCompatActivity {
                 parametros.put("veredas", c.getEstadoDelArbol().getVeredas());
                 parametros.put("podas", c.getEstadoDelArbol().getPodas());
 
+                parametros.put("raices", c.getEstadoDelArbol().getRaices());
+                parametros.put("superficieAfectada", c.getEstadoDelArbol().getSuperficieAfectada());
+                parametros.put("afecto", c.getEstadoDelArbol().getAfecto());
+
+
                 //parametros usuario
                 parametros.put("nombreU", c.getUsuario().getNombre());
                 parametros.put("apellido", c.getUsuario().getApellido());
                 parametros.put("dni", String.valueOf(c.getUsuario().getDni()));
 
 
+                Map<String, String[]> parametrosFotos = new HashMap<String, String[]>();
+
                 //Creo el bitmap
-                Log.d("------zCreo bitmap", fotosASubir.get(0));
-                Bitmap bitmap = BitmapFactory.decodeFile(fotosASubir.get(0));
+                //Log.d("------Creo bitmap---->", fotosASubir.get(0));
+
+                //Todas las fotos
+                int i = 0;
 
 
-                imageView.setImageBitmap(bitmap);
+                //Agrego todas las fotos
+                for (String foto : fotosASubir) {
 
 
-                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-                byte[] byteArray = byteArrayOutputStream .toByteArray();
-                String base64OfBitmap = Base64.encodeToString(byteArray, Base64.DEFAULT);
+                    BitmapFactory.Options btOptions = new BitmapFactory.Options();
+                    btOptions.inSampleSize = 8;
 
 
+                    Bitmap bitmap = BitmapFactory.decodeFile(foto, btOptions);
 
-                parametros.put("image", base64OfBitmap);
+                    //ImageView imageView = new ImageView(EnviarRegistrosActivity.this);
+                    //imageView.setImageBitmap(bitmap);
+                    //ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                    //bitmap.compress(Bitmap.CompressFormat.PNG, 10, byteArrayOutputStream);
+                    //byte[] byteArray = byteArrayOutputStream .toByteArray();
+                    //String base64OfBitmap = Base64.encodeToString(byteArray, Base64.DEFAULT);
 
 
+                    String imagenEnBase64 = getStringImage(bitmap);
+
+                    parametros.put("image_" + i, imagenEnBase64);
+
+                    Log.d("----> envie: ", "image_" + i);
 
 
+                    i++;
+                }
 
+
+                parametros.put("cantidadDeImagenes", String.valueOf(i));
 
 
                 return parametros;
 
             }
+
+
         };
+
+
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
 
-
     }
+
+
+        Intent intent = new Intent(this, MainActivity.class);
+
+        startActivity(intent);
+
+    } //Cierra ejecutar servicio
 
 
     public static String traerFechaCortaConHora(GregorianCalendar fecha){
@@ -247,13 +336,38 @@ public class EnviarRegistrosActivity extends AppCompatActivity {
 
 
     public String getStringImage(Bitmap bmp){
+
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        bmp.compress(Bitmap.CompressFormat.PNG, 0, baos);
         byte[] imageBytes = baos.toByteArray();
         String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
         return encodedImage;
+
+    }
+
+
+    public int cantidadAEnviar(){
+
+        int i = 0;
+        for (Censo c: censos){
+
+            i++;
+        }
+        return i;
     }
 
 
 
+
+
+
+
+
+
+
 }
+
+
+
+
+

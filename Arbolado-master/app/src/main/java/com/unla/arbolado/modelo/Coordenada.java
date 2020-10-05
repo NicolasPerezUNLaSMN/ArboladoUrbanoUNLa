@@ -11,6 +11,7 @@ public class Coordenada implements Serializable {
     private int idCoordenada;
     private String latitud;
     private String longitud;
+    private String direccion;
 
     public Coordenada() {
 
@@ -19,6 +20,19 @@ public class Coordenada implements Serializable {
     public Coordenada(String latitud, String longitud) {
         this.latitud = latitud;
         this.longitud = longitud;
+    }
+
+    public Coordenada(String latitud, String longitud, String direccion) {
+        this.latitud = latitud;
+        this.longitud = longitud;
+        this.direccion = direccion;
+    }
+
+    public Coordenada (int idCoordenada,String latitud, String longitud, String direccion) {
+        this.latitud = latitud;
+        this.longitud = longitud;
+        this.direccion = direccion;
+        this.idCoordenada = idCoordenada;
     }
 
     public Coordenada(int idCoordenada, String latitud, String longitud) {
@@ -55,9 +69,18 @@ public class Coordenada implements Serializable {
         ContentValues values = new ContentValues();
         values.put(Contrato.CoordenadaEntry.LATITUD, latitud);
         values.put(Contrato.CoordenadaEntry.LONGITUD, longitud);
+        values.put(Contrato.CoordenadaEntry.DIRECCION, direccion);
         return values;
     }
 
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
 
     @Override
     public String toString() {
@@ -65,9 +88,7 @@ public class Coordenada implements Serializable {
                 "idCoordenada=" + idCoordenada +
                 ", latitud='" + latitud + '\'' +
                 ", longitud='" + longitud + '\'' +
+                ", direccion='" + direccion + '\'' +
                 '}';
     }
-
-
-
 }
