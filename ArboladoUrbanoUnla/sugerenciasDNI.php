@@ -3,7 +3,7 @@
     
     $conn = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
 
-    $query = "SELECT DISTINCT dni FROM usuario WHERE CAST(150 AS VARCHAR) as LIIKE '{$_GET['dni']}%'";
+    $query = "SELECT DISTINCT dni FROM usuario WHERE CAST(dni AS CHAR(20)) LIKE '{$_GET['dni']}%'";
 
     $sugerencias = "";
 
